@@ -56,18 +56,24 @@ class ClassTreeview(tk.Frame):
         tree_scroll.config(command=self.my_tree.yview)
         
         # Define our columns
-        self.my_tree['columns'] = ('ID', 'Class')
+        self.my_tree['columns'] = ('ID', 'Class', 'R.Id', 'First name', 'Last name')
         
         # Format our columns
-        self.my_tree.column("#0", width=5, stretch=tk.NO)
+        self.my_tree.column("#0", width=20, stretch=tk.NO)
         self.my_tree.column("ID", anchor=tk.CENTER, stretch=tk.NO, width=0)
-        self.my_tree.column("Class", anchor=tk.W, width=1000)
+        self.my_tree.column("Class", anchor=tk.W, width=50)
+        self.my_tree.column("R.Id", anchor=tk.W, width=30)
+        self.my_tree.column("First name", anchor=tk.W, width=200)
+        self.my_tree.column("Last name", anchor=tk.W, width=1200)     
         
         # Create Column headings
         self.my_tree.heading("#0", text="", anchor=tk.W)
         self.my_tree.heading("ID", text="ID", anchor=tk.CENTER)
         self.my_tree.heading("Class", text="Class", anchor=tk.W)
-        
+        self.my_tree.heading("R.Id", text="R.Id", anchor=tk.W)
+        self.my_tree.heading("First name", text="First name", anchor=tk.W)
+        self.my_tree.heading("Last name", text="Last name", anchor=tk.W)
+       
         # Create striped Treeview rows
         self.my_tree.tag_configure("oddrow", background="white")
         self.my_tree.tag_configure("evenrow", background="#f3f3f4")
@@ -119,31 +125,39 @@ class ClassTreeview(tk.Frame):
         # Create counter (Treeview stripes)
         self.count = 0
         self.count_child_row = 100
+        # Labeled R.Id on treeview for brevity. Serves to ennumerate students in each class. Self.count_student not used since each iid must be unique and ennumeration by its nature must repeat numbers used
+        student_roll_index = 1
         # Loop through records from database 
         for record in db.fetch_class():
             
             if self.count % 2 == 0:
                 # Insert even color striped records into treeview
-               self.my_tree.insert(parent="", index="end", iid=self.count, values=(record[0], record[1]), tags=("evenrow",)) # record[0] = class_id 'from database', record[1]= class_name
+               self.my_tree.insert(parent="", index="end", iid=self.count, open=True, values=(record[0], record[1]), tags=("evenrow",)) # record[0] = class_id 'from database', record[1]= class_name
                 # Insert students as child rows of each class.
                for rec in db.fetch_students_in_class(record[1]):
                    if self.count_child_row % 2 == 0:
-                       self.my_tree.insert(parent=self.count, index="end", iid=self.count_child_row, values=(rec[0], rec[1]), tags=("oddrow",))
+                       self.my_tree.insert(parent=self.count, index="end", iid=self.count_child_row, values=('', '', student_roll_index, rec[0], rec[1]), tags=("oddrow",))
                    else:
-                       self.my_tree.insert(parent=self.count, index="end", iid=self.count_child_row, values=(rec[0], rec[1]), tags=("evenrow",))
-                   self.count_child_row += 1 
+                       self.my_tree.insert(parent=self.count, index="end", iid=self.count_child_row, values=('', '', student_roll_index, rec[0], rec[1]), tags=("evenrow",))
+                   self.count_child_row += 1
+                   student_roll_index += 1
             else:
                 # Insert odd color striped records into treeview
                self.my_tree.insert(parent="", index="end", iid=self.count, values=(record[0], record[1]), tags=("oddrow",))  # record[0] = class_id 'from database', record[1]= class_name
                # Insert students as child rows of each class.
                for rec in db.fetch_students_in_class(record[1]):
                    if self.count_child_row % 2 == 0:
-                       self.my_tree.insert(parent=self.count, index="end", iid=self.count_child_row, values=(rec[0], rec[1]), tags=("evenrow",))
+                       self.my_tree.insert(parent=self.count, index="end", iid=self.count_child_row, values=('', '', student_roll_index, rec[0], rec[1]), tags=("evenrow",))
                    else:
-                       self.my_tree.insert(parent=self.count, index="end", iid=self.count_child_row, values=(rec[0], rec[1]), tags=("oddrow",))
-                   self.count_child_row += 1  
+                       self.my_tree.insert(parent=self.count, index="end", iid=self.count_child_row, values=('', '', student_roll_index, rec[0], rec[1]), tags=("oddrow",))
+                   self.count_child_row += 1 
+                   student_roll_index += 1
+
                          
-            self.count += 1  
+            self.count += 1 
+            # Reset student count for next class
+            student_roll_index = 1
+
                 
     def add_record(self):
         

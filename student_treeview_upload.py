@@ -80,8 +80,8 @@ class UploadStudentTreeview(tk.Frame):
         # Bind the treeview
         self.my_tree.bind ("<ButtonRelease-1>", self.select_record)
         
-        # Add Other Buttons
-        button_frame = tk.LabelFrame(self, text="", bg='white')
+        # Add Label Frame for dropdowns and buttons
+        button_frame = tk.LabelFrame(self, text="Upload list", bg='white')
         button_frame.pack(fill='x', expand='yes', padx=(20, 17))
         
         # Create class select string variable
@@ -208,6 +208,10 @@ class UploadStudentTreeview(tk.Frame):
         None.
 
         '''
+        if self.class_select.get() == "Select Class":
+            messagebox.showerror("Selection Error", "Please select a class.")
+            return
+
         try:
             for row in self.df_rows:
             # Push record into database
@@ -233,9 +237,4 @@ class UploadStudentTreeview(tk.Frame):
         rows = self.my_tree.selection()
         for row in reversed(rows):
            self.my_tree.move(row,self.my_tree.parent(row),self.my_tree.index(row)+1)
-    '''      
-    def enroll_student(self):
-        
-        db.insert_enrollment(course_id, student_id, datetime)
-        
-        '''
+    

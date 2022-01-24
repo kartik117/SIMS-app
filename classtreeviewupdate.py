@@ -60,11 +60,8 @@ class ClassTreeviewII(tk.Frame):
         self.my_tree.column("Course code", anchor=tk.W, width=100)
         self.my_tree.column("Class", anchor=tk.W, width=50)
         self.my_tree.column("R.Id", anchor=tk.W, width=30)
+        self.my_tree.column("", anchor=tk.W, width=800)
         self.my_tree.column("", anchor=tk.W, width=1200)
-        self.my_tree.column("", anchor=tk.W, width=1200)
-
-
-
 
         # Create Column headings
         self.my_tree.heading("#0", text="", anchor=tk.W)
@@ -75,8 +72,6 @@ class ClassTreeviewII(tk.Frame):
         self.my_tree.heading("R.Id", text="R.Id", anchor=tk.W)
         self.my_tree.heading("", text="", anchor=tk.W)
         self.my_tree.heading("", text="", anchor=tk.W)
-
-
 
         # Create striped Treeview rows
         self.my_tree.tag_configure("oddrow", background="white")
@@ -145,39 +140,40 @@ class ClassTreeviewII(tk.Frame):
         self.count = 1000
         self.count_class = 100
         self.count_student = 0
-        student_index = 1
+        # Labeled R.Id on treeview for brevity. Serves to ennumerate students in each class. Self.count_student not used since each iid must be unique and ennumeration by its nature must repeat numbers used
+        student_roll_index = 1
 
         # Loop through records from database
         for record in db.fetch_course():
             if self.count % 2 == 0:
                 # Insert records into treeview
-               self.my_tree.insert(parent="", index="end", iid=self.count, values=(record[0], record[1], record[2]), tags=("evenrow",)) # record[0] = course_id 'from database', record[1]= course_name, record[2]= course_code if any
+               self.my_tree.insert(parent="", index="end", iid=self.count, open=True, values=(record[0], record[1], record[2]), tags=("evenrow",)) # record[0] = course_id 'from database', record[1]= course_name, record[2]= course_code if any
                # Insert class as child row of course
                for class_name in db.fetch_enrollments_grouped(record[0]):
                    if self.count_class % 2 == 0:
-                       self.my_tree.insert(parent=self.count, index="end", iid=self.count_class, values=('', '', '', class_name[1]), tags=("oddrow",))
+                       self.my_tree.insert(parent=self.count, index="end", iid=self.count_class, open=True, values=('', '', '', class_name[1]), tags=("oddrow",))
                         # Insert students as child rows of each class.
                        for rec in db.fetch_students_in_class(class_name[1]):
                            if self.count_student % 2 == 0:
-                               self.my_tree.insert(parent=self.count_class, index="end", iid=self.count_student, values=('', '', '', '', student_index, rec[0], rec[1]), tags=("evenrow",)) # null value is a 'filler column' included so as to shift student index under class column
+                               self.my_tree.insert(parent=self.count_class, index="end", iid=self.count_student, values=('', '', '', '', student_roll_index, rec[0], rec[1]), tags=("evenrow",)) # null value is a 'filler column' included so as to shift student index under class column
                            else:
-                               self.my_tree.insert(parent=self.count_class, index="end", iid=self.count_student, values=('', '', '', '', student_index, rec[0], rec[1]), tags=("oddrow",))
+                               self.my_tree.insert(parent=self.count_class, index="end", iid=self.count_student, values=('', '', '', '', student_roll_index, rec[0], rec[1]), tags=("oddrow",))
                            self.count_student += 1
-                           student_index += 1
+                           student_roll_index += 1
                    else:
                        self.my_tree.insert(parent=self.count, index="end", iid=self.count_class, values=('', '', '', class_name[1]), tags=("evenrow",))
 
                        for rec in db.fetch_students_in_class(class_name[1]):
                            if self.count_student % 2 == 0:
-                               self.my_tree.insert(parent=self.count_class, index="end", iid=self.count_student, values=('', '', '', '', student_index, rec[0], rec[1]), tags=("oddrow",)) # null value is a 'filler column' included so as to shift student index under class column
+                               self.my_tree.insert(parent=self.count_class, index="end", iid=self.count_student, values=('', '', '', '', student_roll_index, rec[0], rec[1]), tags=("oddrow",)) # null value is a 'filler column' included so as to shift student index under class column
                            else:
-                               self.my_tree.insert(parent=self.count_class, index="end", iid=self.count_student, values=('', '', '', '', student_index, rec[0], rec[1]), tags=("evenrow",))
+                               self.my_tree.insert(parent=self.count_class, index="end", iid=self.count_student, values=('', '', '', '', student_roll_index, rec[0], rec[1]), tags=("evenrow",))
                            self.count_student += 1
-                           student_index += 1
+                           student_roll_index += 1
 
                    self.count_class += 1
-                   # Reset student index variable to 1
-                   student_index = 1
+                   # Reset student count to 1 for next class
+                   student_roll_index = 1
             else:
                self.my_tree.insert(parent="", index="end", iid=self.count, values=(record[0], record[1], record[2]), tags=("oddrow",))  # record[0] = course_id, record[1]= course_name, record[2]= course_code if any
 
@@ -188,25 +184,25 @@ class ClassTreeviewII(tk.Frame):
                         # Insert students as child rows of each class.
                        for rec in db.fetch_students_in_class(class_name[1]):
                            if self.count_student % 2 == 0:
-                               self.my_tree.insert(parent=self.count_class, index="end", iid=self.count_student, values=('', '', '', '', student_index, rec[0], rec[1]), tags=("oddrow",)) # null value is a 'filler column' included so as to shift student index under class column
+                               self.my_tree.insert(parent=self.count_class, index="end", iid=self.count_student, values=('', '', '', '', student_roll_index, rec[0], rec[1]), tags=("oddrow",)) # null value is a 'filler column' included so as to shift student index under class column
                            else:
-                               self.my_tree.insert(parent=self.count_class, index="end", iid=self.count_student, values=('', '', '', '', student_index, rec[0], rec[1]), tags=("evenrow",))
+                               self.my_tree.insert(parent=self.count_class, index="end", iid=self.count_student, values=('', '', '', '', student_roll_index, rec[0], rec[1]), tags=("evenrow",))
                            self.count_student += 1
-                           student_index += 1
+                           student_roll_index += 1
                    else:
                        self.my_tree.insert(parent=self.count, index="end", iid=self.count_class, values=('', '', '', class_name[1]), tags=("oddrow",))
 
                        for rec in db.fetch_students_in_class(class_name[1]):
                            if self.count_student % 2 == 0:
-                               self.my_tree.insert(parent=self.count_class, index="end", iid=self.count_student, values=('', '', '', '', student_index, rec[0], rec[1]), tags=("evenrow",)) # null value is a 'filler column' included so as to shift student index under class column
+                               self.my_tree.insert(parent=self.count_class, index="end", iid=self.count_student, values=('', '', '', '', student_roll_index, rec[0], rec[1]), tags=("evenrow",)) # null value is a 'filler column' included so as to shift student index under class column
                            else:
-                               self.my_tree.insert(parent=self.count_class, index="end", iid=self.count_student, values=('', '', '', '', student_index, rec[0], rec[1]), tags=("oddrow",))
+                               self.my_tree.insert(parent=self.count_class, index="end", iid=self.count_student, values=('', '', '', '', student_roll_index, rec[0], rec[1]), tags=("oddrow",))
                            self.count_student += 1
-                           student_index += 1
+                           student_roll_index += 1
 
                    self.count_class += 1
-                   # Reset student index variable to 1
-                   student_index = 1
+                   # Reset student count to 1 for next class
+                   student_roll_index = 1
             self.count += 1
 
 

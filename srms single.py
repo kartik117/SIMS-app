@@ -23,8 +23,8 @@ class SRMSApp(tk.Tk):
         tk.Tk.__init__(self, *args, *kwargs)
         tk.Tk.wm_title(self, 'School Records Management System')
         #tk.Tk.iconbitmap(self, default='png-to-ico.ico')
-        tk.Tk.geometry(self, '1360x660')
-        tk.Tk.resizable(self, width= False, height = False)
+        tk.Tk.geometry(self, '1360x750')
+        #tk.Tk.resizable(self, width= False, height = False)
         
         container = tk.Frame(self)
 
@@ -58,13 +58,13 @@ class StartPage(tk.Frame):
 
         # Image import
         self.img = Image.open("images/lib1.jpg")
-        self.img = self.img.resize((1358,698))
+        self.img = self.img.resize((1358,748))
 
         # There is the need to specify the master tk instance since ImageTK is a second instance of tkinter
         self.img = ImageTk.PhotoImage(self.img, master=self)
 
         # Define canvas
-        self.my_canvas = tk.Canvas(self, width=1360, height=700)
+        self.my_canvas = tk.Canvas(self, width=1360, height=750)
         self.my_canvas.grid(row=0, column = 0)
 
         # Put the image on the canvas
@@ -79,7 +79,7 @@ class StartPage(tk.Frame):
         register_button = ttk.Button(self, text = 'Register', width = 25, command=lambda: controller.show_frame(SignUp))
         # Button windows
         login_button_window = self.my_canvas.create_window(500, 350, anchor= 'nw', window=login_button)
-        register_button_window = self.my_canvas.create_window(700, 350, anchor= 'nw', window=register_button)
+        register_button_window = self.my_canvas.create_window(750, 350, anchor= 'nw', window=register_button)
 
         '''
         # Binding
@@ -110,12 +110,12 @@ class SignUp(tk.Frame):
 
         # Image import
         self.img = Image.open("images/lib2.jpg")
-        self.img = self.img.resize((1358,698))
+        self.img = self.img.resize((1358,748))
 
         # There is the need to specify the master tk instance since ImageTK is a second instance of tkinter
         self.img = ImageTk.PhotoImage(self.img, master=self)
         # Define canvas
-        self.my_canvas = tk.Canvas(self, width=1360, height=700)
+        self.my_canvas = tk.Canvas(self, width=1360, height=750)
         self.my_canvas.grid(row=0, column = 0)
         # Put the image on the canvas
         self.my_canvas.create_image(0,0, image=self.img, anchor='nw')
@@ -189,11 +189,11 @@ class Login(tk.Frame):
         self.controller = controller
         # Image import
         self.img = Image.open("images/lib3.jpg")
-        self.img = self.img.resize((1358,698))
+        self.img = self.img.resize((1358,748))
         # There is the need to specify the master tk instance since ImageTK is a second instance of tkinter
         self.img = ImageTk.PhotoImage(self.img, master=self)
         # Define canvas
-        self.my_canvas = tk.Canvas(self, width=1360, height=700)
+        self.my_canvas = tk.Canvas(self, width=1360, height=750)
         self.my_canvas.grid(row=0, column = 0)
 
         # Put the image on the canvas

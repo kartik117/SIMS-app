@@ -56,12 +56,14 @@ class Dashboard(tk.Frame):
         optionsMenu.add_command(label="View list", command=self.our_command)
 
         
-        # Create Records menu
-        recordsMenu = tk.Menu(menubar, tearoff=False)
-        menubar.add_cascade(label="Records", menu=recordsMenu)
+        # Create Assessments(Previously records) menu
+        assessmentsMenu = tk.Menu(menubar, tearoff=False)
+        menubar.add_cascade(label="Assessments", menu=assessmentsMenu)
         # records menu items
-        recordsMenu.add_command(label="New/Edit", command=self.our_command)
-        recordsMenu.add_command(label="Load existing", command=self.our_command)     
+        assessmentsMenu.add_command(label="New/Edit", command=self.our_command)
+        assessmentsMenu.add_command(label="Load existing", command=self.our_command) 
+        assessmentsMenu.add_command(label="Previous Academic Sessions", command=self.our_command)     
+
 
         # To be deleted soon
         #recordsMenu.add_command(label="Student Reports", command=lambda: root.show_frame(StudentDetails))

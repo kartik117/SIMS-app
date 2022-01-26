@@ -40,7 +40,7 @@ class ClassTreeviewII(tk.Frame):
 
         # Treeview Scrollbar
         tree_scroll = tk.Scrollbar(tree_frame)
-        tree_scroll.pack(side=tk.RIGHT, fill=tk.Y)
+        tree_scroll.pack(side=tk.RIGHT, fill=tk.Y, pady=(2,0))
 
         # Create Treeview
         self.my_tree = ttk.Treeview(tree_frame, yscrollcommand=tree_scroll.set, selectmode='extended', height=25)
@@ -76,6 +76,22 @@ class ClassTreeviewII(tk.Frame):
         # Create striped Treeview rows
         self.my_tree.tag_configure("oddrow", background="white")
         self.my_tree.tag_configure("evenrow", background="#f3f3f4")
+        
+        # Create session frame
+        session_frame = tk.LabelFrame(self, text="Enter year")
+        session_frame.pack(fill='x', expand='yes', padx=(20, 17))
+        
+        # Create entry boxes for academic year and term     
+        session_label = tk.Label(session_frame, text="Academic Year")
+        session_label.grid(row=0, column=0, pady=10, padx=5)
+        self.session_entry = tk.Entry(session_frame, text=session_label, width=30)
+        self.session_entry.grid(row=0, column=1, pady=10, padx=5)
+        
+        # Create term dropdown menu 
+        self.term_select = tk.StringVar()
+        self.term_dropdown_list = ["Select term", "1", "2", "3"]
+        term_dropdown_menu = ttk.OptionMenu(session_frame, self.term_select, *self.term_dropdown_list)
+        term_dropdown_menu.grid(row=0, column=3, pady=10, padx=5)
 
         # Create Add class frame
         add_class_frame = tk.LabelFrame(self, text="Add class")
@@ -104,33 +120,10 @@ class ClassTreeviewII(tk.Frame):
         # Create dropdown menu of courses
         course_dropdown_menu = ttk.OptionMenu(add_class_frame, self.course_select, *self.course_dropdown_list)
         course_dropdown_menu.grid(row=0, column=3, pady=10, padx=20)
-
-        enroll_button = ttk.Button(self.winfo_children()[2], text="Enroll class", command=lambda: self.enroll_class_in_course(), width=42)
-        enroll_button.grid(row=0, column=4, padx=10, pady=5, columnspan=2)
-
-
-        # Add buttons back
-        #add_button = ttk.Button(self.winfo_children()[2], text="Add Record", command=lambda: self.add_record(), width=42)
-        #add_button.grid(row=0, column=4, padx=10, pady=5, columnspan=2)
-
-        #update_button = ttk.Button(self.winfo_children()[2], text="Update Record", command=lambda: self.update_record(), width=19)
-        #update_button.grid(row=1, column=4, padx=1, pady=(5,20))
-
-        #remove_one_button = ttk.Button(self.winfo_children()[2], text="Remove Record", command=lambda: self.remove_record(), width=19)
-        #remove_one_button.grid(row=1, column=5, padx=1, pady=(5,20))
-
-        # Add Other Buttons
-        button_frame = tk.LabelFrame(self, text="Commands")
-        button_frame.pack(fill='x', expand='yes', padx=(20, 17))
-
-        move_up_button = ttk.Button(button_frame, text="Move Up", command=self.up)
-        move_up_button.grid(row=0, column=3,
-                            padx=10, pady=10)
-
-        move_down_button = ttk.Button(button_frame, text="Move Down", command=self.down)
-        move_down_button.grid(row=0, column=4, padx=10, pady=10)
-
-
+        
+        enroll_button = ttk.Button(add_class_frame, text="Enroll class", command=lambda: self.enroll_class_in_course(), width=42)
+        enroll_button.grid(row=0, column=8, padx=10, pady=5, columnspan=2)
+        
         self.populate_treeview()
 
 
@@ -205,7 +198,6 @@ class ClassTreeviewII(tk.Frame):
                    student_roll_index = 1
             self.count += 1
 
-
     # For fun I guess
     # Move Row Up
     def up(self):
@@ -220,7 +212,6 @@ class ClassTreeviewII(tk.Frame):
         for row in reversed(rows):
            self.my_tree.move(row,self.my_tree.parent(row),self.my_tree.index(row)+1)
 
-
     def enroll_class_in_course(self):
         if self.course_select.get() != "Select course" and self.class_select.get() != "Select class":
             # Obtain course id
@@ -229,11 +220,9 @@ class ClassTreeviewII(tk.Frame):
                 if self.course_select.get().split('  ')[0] == course[1] and self.course_select.get().split('  ')[1] == course[2]: # I used a double space when merging both course name and course code. For easier readability
                     # Assign course id to variable. Chose not to use course_id as variable name
                     cid = course[0]
-
             for record in db.fetch_student():
                 if record[4] == self.class_select.get():
                     db.insert_enrollment(cid, record[0], self.class_select.get(), datetime.datetime.now())
-
         else:
             messagebox.showinfo("Selection Incomplete.","Please select class and course.")
 

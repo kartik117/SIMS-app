@@ -15,7 +15,6 @@ db = Database('new_single_user3.db')
 class ClassTreeview(tk.Frame):
     def __init__(self, parent): # I doubt this root arg is required
         tk.Frame.__init__(self, parent)
-
         
         # Function that puts mainframe on screen (this is probably going to be cut and put as the callable function in a classs button)
         self.pack(side='right', fill='both', expand=True)
@@ -45,7 +44,7 @@ class ClassTreeview(tk.Frame):
 
         # Treeview Scrollbar
         tree_scroll = tk.Scrollbar(tree_frame)
-        tree_scroll.pack(side=tk.RIGHT, fill=tk.Y)
+        tree_scroll.pack(side=tk.RIGHT, fill=tk.Y, pady=(2,0))
         
         # Create Treeview
         self.my_tree = ttk.Treeview(tree_frame, yscrollcommand=tree_scroll.set, selectmode='extended', height=25)
@@ -119,7 +118,6 @@ class ClassTreeview(tk.Frame):
         
         self.populate_treeview()
 
-        
     # Populate treeview from database
     def populate_treeview(self):
         # Create counter (Treeview stripes)
@@ -152,15 +150,12 @@ class ClassTreeview(tk.Frame):
                        self.my_tree.insert(parent=self.count, index="end", iid=self.count_child_row, values=('', '', student_roll_index, rec[0], rec[1]), tags=("oddrow",))
                    self.count_child_row += 1 
                    student_roll_index += 1
-
                          
             self.count += 1 
             # Reset student count for next class
             student_roll_index = 1
 
-                
     def add_record(self):
-        
         if self.class_name_entry.get() == "":
             messagebox.showerror("", "Class name field is required.")
             return
@@ -174,6 +169,18 @@ class ClassTreeview(tk.Frame):
         self.populate_treeview()          
     
     def select_record(self, event):
+        '''
+        Selects a row of records on the treeview. Usually for the purpose of sending row contents to entry boxes.     
+        
+        Parameters 
+        ----------
+        event : The selection of a row on the treeview by mouse.
+
+        Returns
+        -------
+        None.
+
+        '''
         # Clear entries
         self.clear_entries()
         # Grab record number

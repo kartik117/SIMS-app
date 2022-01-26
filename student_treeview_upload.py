@@ -40,13 +40,14 @@ class UploadStudentTreeview(tk.Frame):
         style.map('Treeview',
                   background=[('selected', '#73c2fb')]) #a4bce9
         
+        
         # Create Treeview Frame
         tree_frame = tk.Frame(self)
         tree_frame.pack(fill=tk.X, anchor=tk.N, padx=(20,0))
 
         # Treeview Scrollbar
         tree_scroll = tk.Scrollbar(tree_frame)
-        tree_scroll.pack(side=tk.RIGHT, fill=tk.Y)
+        tree_scroll.pack(side=tk.RIGHT, fill=tk.Y, pady=(2,0))
         
         # Create Treeview
         self.my_tree = ttk.Treeview(tree_frame, yscrollcommand=tree_scroll.set, selectmode='extended', height=25)
@@ -112,12 +113,23 @@ class UploadStudentTreeview(tk.Frame):
         
 
     def select_record(self, event):
+        '''
+        Selects a row of records on the treeview. Usually for the purpose of sending row contents to entry boxes.     
+        
+        Parameters 
+        ----------
+        event : The selection of a row on the treeview by mouse.
+
+        Returns
+        -------
+        None.
+
+        '''
         # Grab record number
         selected =self.my_tree.focus()
         # Grab record values
         values =self.my_tree.item(selected, 'values')
         
-
     def remove_record(self):
         # Grab record
         selected =self.my_tree.focus()
@@ -169,7 +181,6 @@ class UploadStudentTreeview(tk.Frame):
         self.my_tree.column("First name", anchor=tk.W, width=200)
         self.my_tree.column("Last name", anchor=tk.W, width=200)
         self.my_tree.column("Gender", anchor=tk.W, width=1000)
-
         
         # Create Column headings
         self.my_tree.heading("#0", text="", anchor=tk.W)
@@ -177,7 +188,6 @@ class UploadStudentTreeview(tk.Frame):
         self.my_tree.heading("First name", text="First name", anchor=tk.W)
         self.my_tree.heading("Last name", text="Last name", anchor=tk.W)
         self.my_tree.heading("Gender", text="Gender", anchor=tk.W)
-
         
         # Create striped Treeview rows
         self.my_tree.tag_configure("oddrow", background="white")
@@ -185,7 +195,6 @@ class UploadStudentTreeview(tk.Frame):
         
         # Loop through column list
         self.count = 0
-
         for column in self.my_tree["columns"]:      
             # Put data in treeview
             self.df_rows = df.to_numpy().tolist()
@@ -193,7 +202,6 @@ class UploadStudentTreeview(tk.Frame):
             if self.count % 2 == 0:
                 # Insert records into treeview rows
                self.my_tree.insert(parent="", index="end", iid=self.count, values=(row), tags=("evenrow",)) 
-                
             else:
                self.my_tree.insert(parent="", index="end", iid=self.count, values=(row), tags=("oddrow",))
             self.count += 1
@@ -201,8 +209,6 @@ class UploadStudentTreeview(tk.Frame):
     def save_student_list_to_db(self):
         '''
         Save each student's data in the student table of database. 
-        Then call enroll_student function to enroll each student in course selected.
-
         Returns
         -------
         None.

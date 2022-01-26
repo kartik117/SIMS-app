@@ -251,6 +251,9 @@ class Database:
 # Instantiate database
 def main():
     db=Database('new_single_user3.db')
+    
+    # To add columns to db, add self.cur.execute functions here and run this program directly
+    # Affected tables must have their insert and and update queries adjusted accordingly and select queries if necessary
 
 if __name__ == '__main__':
     main()

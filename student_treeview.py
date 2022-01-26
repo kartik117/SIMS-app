@@ -46,7 +46,7 @@ class StudentTreeview(tk.Frame):
 
         # Treeview Scrollbar
         tree_scroll = tk.Scrollbar(tree_frame)
-        tree_scroll.pack(side=tk.RIGHT, fill=tk.Y)
+        tree_scroll.pack(side=tk.RIGHT, fill=tk.Y, pady=(2,0))
         
         # Create Treeview
         self.my_tree = ttk.Treeview(tree_frame, yscrollcommand=tree_scroll.set, selectmode='extended', height=25)
@@ -66,9 +66,7 @@ class StudentTreeview(tk.Frame):
         self.my_tree.column("Last name", anchor=tk.W, width=200)
         self.my_tree.column("Gender", anchor=tk.W, width=200)
         self.my_tree.column("Class", anchor=tk.W, width=600)
-
-
-        
+  
         # Create Column headings
         self.my_tree.heading("#0", text="", anchor=tk.W)
         self.my_tree.heading("ID", text="ID", anchor=tk.CENTER)
@@ -76,8 +74,7 @@ class StudentTreeview(tk.Frame):
         self.my_tree.heading("Last name", text="Last name", anchor=tk.W)
         self.my_tree.heading("Gender", text="Gender", anchor=tk.W)
         self.my_tree.heading("Class", text="Class", anchor=tk.W)
-
-        
+   
         # Create striped Treeview rows
         self.my_tree.tag_configure("oddrow", background="white")
         self.my_tree.tag_configure("evenrow", background="#f3f3f4")
@@ -149,37 +146,24 @@ class StudentTreeview(tk.Frame):
     def populate_treeview(self):
         # Create counter (Treeview stripes)
         self.count = 0
-        #self.count_child_row = 0
         # Loop through records from database 
         for record in db.fetch_student():
             
             if self.count % 2 == 0:
                 # Insert records into treeview
                self.my_tree.insert(parent="", index="end", iid=self.count, values=(record[0], record[1], record[2], record[3], record[4]), tags=("evenrow",)) # record[0] = student_id 'from database', record[1]= student_name
-                # Insert courses as child rows of each course.
-                # Not to be. Should be students as child rows instead
-               #if self.count_child_row % 2 == 0:
-               #    self.my_tree.insert(parent=self.count, index="end", iid=self.count_child_row, values=(), tags=("oddrow",))
-              # else:
-              #     self.my_tree.insert(parent=self.count, index="end", iid=self.count_child_row, values=(), tags=("evenrow",))
-               #self.count_child_row += 1 
-
+              
             else:
                self.my_tree.insert(parent="", index="end", iid=self.count, values=(record[0], record[1], record[2], record[3], record[4]), tags=("oddrow",))  # record[0] = student_id 'from database', record[1]= student_name
-              # if self.count_child_row % 2 == 0:
-               #    self.my_tree.insert(parent=self.count, index="end", iid=self.count_child_row, values=(), tags=("evenrow",))
-              # else:
-              #     self.my_tree.insert(parent=self.count, index="end", iid=self.count_child_row, values=(), tags=("oddrow",))
-              # self.count_child_row += 1
-            
+              
             self.count += 1  
                 
     def add_record(self):
         
-        if self.student_first_name_entry.get() == "" and self.student_last_name_entry.get() == "":
+        if self.first_name_entry.get() == "" and self.last_name_entry.get() == "":
             messagebox.showerror("", "Student name fields are required.")
             return
-        db.insert_student(self.first_name_entry.get(), self.last_name_entry.get(), self.gender_entry.get(), self.class_select.get()) # maybe get class_id from a combo with a function pulling class name first
+        db.insert_student(self.first_name_entry.get(), self.last_name_entry.get(), self.gender_select.get(), self.class_select.get()) # maybe get class_id from a combo with a function pulling class name first
         # Clear Treeview
         for record in self.my_tree.get_children():
             self.my_tree.delete(record) 
@@ -189,6 +173,18 @@ class StudentTreeview(tk.Frame):
         self.populate_treeview()          
     
     def select_record(self, event):
+        '''
+        Selects a row of records on the treeview. Usually for the purpose of sending row contents to entry boxes.     
+        
+        Parameters 
+        ----------
+        event : The selection of a row on the treeview by mouse.
+
+        Returns
+        -------
+        None.
+
+        '''
         # Clear entries
         self.clear_entries()
         # Grab record number

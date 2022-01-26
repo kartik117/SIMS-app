@@ -164,10 +164,11 @@ class UploadStudentTreeview(tk.Frame):
                 df = df.dropna(how='all')
             except(ValueError):
                 messagebox.showerror("File Error", "File could not be opened... try again!")
-                
             except FileNotFoundError:
                 messagebox.showerror("File Error", "File could not be found... try again!")
-       
+            except UnboundLocalError: # To handle "local variable 'df' referenced before assignment"
+                pass
+        
         # Clear old treeview        
         self.clear_tree()
         

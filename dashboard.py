@@ -11,13 +11,17 @@ from tkinter import ttk, filedialog
 
 from navbar import NavBar
 from coursetreeview import CourseTreeview
+from navbar_assess import NavBarAssessment
+from assessments import CreateAssessment
+
 
 class Dashboard(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent, bg='#f3f3f4')
              
         self.controller = controller
-        self.nav = NavBar(self, parent)
+        self.parent = parent
+        self.nav = NavBar(self)
         self.tree = CourseTreeview(self)
         
     def get_name(self):
@@ -51,7 +55,7 @@ class Dashboard(tk.Frame):
         optionsMenu= tk.Menu(menubar, tearoff=False)
         menubar.add_cascade(label="Options", menu=optionsMenu)
         # Options menu items
-        optionsMenu.add_command(label="Add new course", command=lambda: self.add_new_course())
+        optionsMenu.add_command(label="Add new course", command=self.our_command)
         optionsMenu.add_command(label="Add lecture notes", command=self.our_command)
         optionsMenu.add_command(label="View list", command=self.our_command)
 
@@ -60,13 +64,14 @@ class Dashboard(tk.Frame):
         assessmentsMenu = tk.Menu(menubar, tearoff=False)
         menubar.add_cascade(label="Assessments", menu=assessmentsMenu)
         # records menu items
-        assessmentsMenu.add_command(label="New/Edit", command=self.our_command)
-        assessmentsMenu.add_command(label="Load existing", command=self.our_command) 
+        assessmentsMenu.add_command(label="New/Edit", command=lambda: self.open_assessments())
         assessmentsMenu.add_command(label="Previous Academic Sessions", command=self.our_command)     
 
 
-        # To be deleted soon
-        #recordsMenu.add_command(label="Student Reports", command=lambda: root.show_frame(StudentDetails))
+        # Create Dashboard to be able to come back here
+        dashboardMenu = tk.Menu(menubar, tearoff=False)# To be deleted soon
+        menubar.add_cascade(label="Dashboard", menu=dashboardMenu)
+        dashboardMenu.add_command(label="Dash", command=lambda: self.open_courses())
         #recordsMenu.add_command(label="Class Reports", command=lambda: root.show_frame(ClassDetails))
                 
         # Create Analytics menu
@@ -121,6 +126,16 @@ class Dashboard(tk.Frame):
     def our_command(self):
         pass 
     
-           
+    def open_courses(self):
+        for widget in self.winfo_children():
+            widget.destroy()
+        self.navbar = NavBar(self)
+        courses_page = CourseTreeview(self)
+    
+    def open_assessments(self):
+        for widget in self.winfo_children():
+            widget.destroy()
+        self.navbar = NavBarAssessment(self)
+        assessment_page = CreateAssessment(self)
     
   

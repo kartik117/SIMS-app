@@ -9,34 +9,31 @@ Created on Tue Jan 18 08:55:41 2022
 import tkinter as tk
 from tkinter import ttk
 
-from classtreeview import ClassTreeview
-from classtreeviewupdate import ClassTreeviewII
-from coursetreeview import CourseTreeview
-from student_treeview import StudentTreeview
-from student_treeview_upload import UploadStudentTreeview
+
+
+from assessments import CreateAssessment
 
 
 
-class NavBar(tk.Frame):
+class NavBarAssessment(tk.Frame):
     def __init__(self, parent): 
         tk.Frame.__init__(self, parent, bg = '#394552')
 
         self.parent = parent
         self.pack(side='left', fill='both', pady=26)
               
-        nav_button=tk.Button(self, text='My Courses', width=25, anchor=tk.W, fg='white', font=("Calibri", 12, 'bold'), bg='#394552',
+        nav_button=tk.Button(self, text='Assessments', width=25, anchor=tk.W, fg='white', font=("Calibri", 12, 'bold'), bg='#394552',
                           command=lambda: self.show_courses())
         nav_button.grid(row=0, column=0, sticky=tk.W, pady=(10, 0), padx=10)
-        nav_button=tk.Button(self, text='My Classes', width=25, anchor=tk.W, fg='white', font=("Calibri", 12, 'bold'), bg='#394552', bd=0,
-                          command=lambda: self.show_classes())
+        
         nav_button.grid(row=1, column=0, sticky=tk.W, pady=10, padx=10)
-        nav_button=tk.Button(self, text='Add/Edit Students', width=25, fg='white', font=("Calibri", 12), bg='#394552', bd=0, anchor=tk.W,
+        nav_button=tk.Button(self, text='Create Assessments', width=25, bg='#394552', bd=0, fg='white', font=('Calibri', 12), anchor=tk.W,
                           command=lambda: self.add_student())
         nav_button.grid(row=2, column=0, sticky=tk.W, padx=30, pady=10)
-        nav_button=tk.Button(self, text='Upload Students List', width=25, fg='white', font=("Calibri", 12), bg='#394552', bd=0, anchor=tk.W,
+        nav_button=tk.Button(self, text='Record Assessments', width=25, bg='#394552', fg='white', bd=0, font=('Calibri', 12), anchor=tk.W,
                           command=lambda: self.upload_student())
         nav_button.grid(row=3, column=0, sticky=tk.W, padx=30, pady=10)        
-        enroll_button=tk.Button(self, text='Enroll Class', width=25, fg='white', font=("Calibri", 12), bg='#394552', bd=0, anchor=tk.W,
+        enroll_button=tk.Button(self, text='Evaluation', width=25, bg='#394552', bd=0, fg='white', font=('Calibri', 12), anchor=tk.W,
                           command=lambda: self.enroll_class_in_course())
         enroll_button.grid(row=4, column=0, sticky=tk.W, padx=30, pady=10)
         nav_button=tk.Button(self, text='Timetable', width=25, anchor=tk.W, fg='white', font=("Calibri", 12, 'bold'), bg='#394552', bd=0,
@@ -47,13 +44,14 @@ class NavBar(tk.Frame):
         nav_button.grid(row=6, column=0, sticky=tk.W, padx=10)
         
     
-    def show_courses(self):
+    def show_assessments(self):
         # Clear off whichever frame is currently displayed
-        self.parent.winfo_children()[1].destroy()
+        for widget in self.parent.winfo_children():
+            widget.destroy()
         # Create class treeview frame
-        self.parent.treeview = CourseTreeview(self.parent)
+        #self.parent.treeview = AssessmentTreeview(self.parent)
 
-    def show_classes(self):
+    def create_assessment(self):
         # Clear off whichever frame is currently displayed
         self.parent.winfo_children()[1].destroy()
         # Create class treeview frame
@@ -64,12 +62,6 @@ class NavBar(tk.Frame):
         self.parent.winfo_children()[1].destroy()
         # Create add course treeview frame
         self.parent.treeview = ClassTreeviewII(self.parent)
-                
-                # NOTES:
-                # Might have to build another frame that contains in addition to the remaining widgets, a combobox widget for adding courses
-                # self.parent.winfo_children()[1].destroy()
-                # self.parent.treeview = ClassTreeviewWITHcombobox(self.parent)
-                # Or (and this would be fun) create the replacement widget here: hahahahahaha!!! I thought it would not be possible but it just might work
         
     def add_student(self):
         # Clear off whichever frame is currently displayed

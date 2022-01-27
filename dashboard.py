@@ -23,6 +23,8 @@ class Dashboard(tk.Frame):
         self.parent = parent
         self.nav = NavBar(self)
         self.tree = CourseTreeview(self)
+        #self.controller.resizable(self.controller, width= True, height = True)
+
         
     def get_name(self):
         # check if login username entry matches username and if login password entry matches password

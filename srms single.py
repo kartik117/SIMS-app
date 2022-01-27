@@ -23,7 +23,9 @@ class SRMSApp(tk.Tk):
         tk.Tk.__init__(self, *args, *kwargs)
         tk.Tk.wm_title(self, 'School Records Management System')
         #tk.Tk.iconbitmap(self, default='png-to-ico.ico')
-        tk.Tk.geometry(self, '1360x750')
+        w= tk.Tk.winfo_screenwidth(self)
+        h= tk.Tk.winfo_screenheight(self)
+        tk.Tk.geometry(self, '%dx%d' %(w,h))
         #tk.Tk.resizable(self, width= False, height = False)
         
         container = tk.Frame(self)
@@ -57,15 +59,16 @@ class StartPage(tk.Frame):
         tk.Frame.__init__(self, parent)
 
         # Image import
+        self.controller = controller
         self.img = Image.open("images/lib1.jpg")
-        self.img = self.img.resize((1358,748))
+        self.img = self.img.resize((self.controller.winfo_screenwidth(), self.controller.winfo_screenheight()))
 
         # There is the need to specify the master tk instance since ImageTK is a second instance of tkinter
         self.img = ImageTk.PhotoImage(self.img, master=self)
 
         # Define canvas
-        self.my_canvas = tk.Canvas(self, width=1360, height=750)
-        self.my_canvas.grid(row=0, column = 0)
+        self.my_canvas = tk.Canvas(self)
+        self.my_canvas.pack(side='top', fill='both', expand=True)
 
         # Put the image on the canvas
         self.my_canvas.create_image(0,0, image=self.img, anchor='nw')
@@ -81,14 +84,15 @@ class StartPage(tk.Frame):
         login_button_window = self.my_canvas.create_window(500, 350, anchor= 'nw', window=login_button)
         register_button_window = self.my_canvas.create_window(750, 350, anchor= 'nw', window=register_button)
 
-        '''
+        
         # Binding
         self.bind('<Configure>', self.resizer)
 
     def resizer(self, e):
         # Open our image
-        self.bg1 = Image.open("pexels-olenka-sergienko-3646172.jpg")
+        self.bg1 = Image.open("images/lib1.jpg")
         # Resize the image
+
         self.resized_bg = self.bg1.resize((e.width, e.height), Image.ANTIALIAS)
         # Define our image again
         self.new_img = ImageTk.PhotoImage(self.resized_bg)
@@ -97,7 +101,7 @@ class StartPage(tk.Frame):
         # Add text back
         self.my_canvas.create_text(180, 330, text = 'SRMS 1.0', font=("Arial black", 40, 'bold italic'), fill='white')
 
-        '''
+    
 
     def menubar(self, root):
         menubar = tk.Menu(root)
@@ -200,8 +204,8 @@ class Login(tk.Frame):
         self.my_canvas.create_image(0,0, image=self.img, anchor='nw')
 
         # Add label
-        self.my_canvas.create_text(450, 208, text = 'Enter your username or ID.', font=("Arial black", 12, 'bold italic'), fill='white', anchor='nw')
-        self.my_canvas.create_text(450, 278, text = 'Enter your password.', font=("Arial black", 12, 'bold italic'), fill='white', anchor='nw')
+        self.my_canvas.create_text(450, 216, text = 'Enter your username or ID.', font=("Arial black", 12, 'bold italic'), fill='white', anchor='nw')
+        self.my_canvas.create_text(450, 286, text = 'Enter your password.', font=("Arial black", 12, 'bold italic'), fill='white', anchor='nw')
 
         # Variables
         self.temp_login_name = tk.StringVar()
@@ -215,7 +219,7 @@ class Login(tk.Frame):
 
         # Buttons
         login_button = tk.Button(self, text = 'SIGN IN', font=('Calibri', 12, 'bold'), width=48, height=2,
-                            command= lambda : controller.show_frame(Dashboard) if self.verify_login() == 1 else messagebox.showerror('', 'Login Unsuccessful.'))#self.verify_login)
+                            command= lambda : [controller.show_frame(Dashboard), controller.resizable(self, width= True, height = True)] if self.verify_login() == 1 else messagebox.showerror('', 'Login Unsuccessful.'))#self.verify_login)
         login_button.bind("<Return>", self.login_check)
         back_to_home_button=ttk.Button(self, text='Back to Home', width=20,
                           command=lambda: controller.show_frame(StartPage))
@@ -223,9 +227,9 @@ class Login(tk.Frame):
                           command=lambda: controller.show_frame(SignUp))
 
         # Create button windows
-        username_entry_window = self.my_canvas.create_window(450, 230, anchor= 'nw', window=self.username_entry1)
-        pw_entry_window = self.my_canvas.create_window(450, 300, anchor= 'nw', window=self.password_entry1)
-        login_button_window = self.my_canvas.create_window(450, 400, anchor= 'nw', window=login_button)
+        username_entry_window = self.my_canvas.create_window(450, 238, anchor= 'nw', window=self.username_entry1)
+        pw_entry_window = self.my_canvas.create_window(450, 308, anchor= 'nw', window=self.password_entry1)
+        login_button_window = self.my_canvas.create_window(450, 408, anchor= 'nw', window=login_button)
         sign_up_button_window = self.my_canvas.create_window(1000, 50, anchor= 'nw', window=sign_up_button)
         back_to_home_button_window = self.my_canvas.create_window(1150, 50, anchor= 'nw', window=back_to_home_button)
 

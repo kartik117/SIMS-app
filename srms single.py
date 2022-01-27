@@ -214,8 +214,8 @@ class Login(tk.Frame):
         self.password_entry1 = tk.Entry(self, textvariable=self.temp_login_password, show='*', font=('Helvetica', 18), width=30, fg="#336d92", bd=0)
 
         # Buttons
-        login_button = tk.Button(self, text = 'SIGN IN', font=('Calibri', 12, 'bold'), width=48, height=2, 
-                                     command=lambda: controller.show_frame(Dashboard))
+        login_button = tk.Button(self, text = 'SIGN IN', font=('Calibri', 12, 'bold'), width=48, height=2,
+                            command= lambda : controller.show_frame(Dashboard) if self.verify_login() == 1 else messagebox.showerror('', 'Login Unsuccessful.'))#self.verify_login)
         login_button.bind("<Return>", self.login_check)
         back_to_home_button=ttk.Button(self, text='Back to Home', width=20,
                           command=lambda: controller.show_frame(StartPage))

@@ -159,9 +159,11 @@ class CourseTreeview(tk.Frame):
         # Grab record values
         values =self.my_tree.item(selected, 'values')
         # Output to entry boxes
-        self.course_name_entry.insert(0, values[1])
-        self.course_code_entry.insert(0, values[2])
-        
+        try:
+            self.course_name_entry.insert(0, values[1])
+            self.course_code_entry.insert(0, values[2])
+        except IndexError:
+            pass
     def update_record(self):
         
         # Grab record number

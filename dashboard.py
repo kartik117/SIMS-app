@@ -59,21 +59,21 @@ class Dashboard(tk.Frame):
         optionsMenu.add_command(label="Add lecture notes", command=self.our_command)
         optionsMenu.add_command(label="View list", command=self.our_command)
 
+        # Create Courses to be able to come back here
+        courseMenu = tk.Menu(menubar, tearoff=False)# To be deleted soon
+        menubar.add_cascade(label="Courses", menu=courseMenu)
+        courseMenu.add_command(label="Dash back", command=lambda: self.open_courses())
         
+        # loooong ago lol.
+        #recordsMenu.add_command(label="Class Reports", command=lambda: root.show_frame(ClassDetails))
+         
         # Create Assessments(Previously records) menu
         assessmentsMenu = tk.Menu(menubar, tearoff=False)
         menubar.add_cascade(label="Assessments", menu=assessmentsMenu)
         # records menu items
         assessmentsMenu.add_command(label="New/Edit", command=lambda: self.open_assessments())
         assessmentsMenu.add_command(label="Previous Academic Sessions", command=self.our_command)     
-
-
-        # Create Dashboard to be able to come back here
-        dashboardMenu = tk.Menu(menubar, tearoff=False)# To be deleted soon
-        menubar.add_cascade(label="Dashboard", menu=dashboardMenu)
-        dashboardMenu.add_command(label="Dash", command=lambda: self.open_courses())
-        #recordsMenu.add_command(label="Class Reports", command=lambda: root.show_frame(ClassDetails))
-                
+      
         # Create Analytics menu
         analyticsMenu= tk.Menu(menubar, tearoff=False)
         menubar.add_cascade(label="Analytics", menu=analyticsMenu)

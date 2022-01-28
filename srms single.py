@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Wed Dec  8 12:11:04 2021
-
 @author: KAIZEN
 """
 
@@ -84,6 +83,8 @@ class StartPage(tk.Frame):
         login_button_window = self.my_canvas.create_window(500, 350, anchor= 'nw', window=login_button)
         register_button_window = self.my_canvas.create_window(750, 350, anchor= 'nw', window=register_button)
 
+        '''
+        # Glitches the transition from login screen to dashboard (tiny but noticeable) 
         
         # Binding
         self.bind('<Configure>', self.resizer)
@@ -100,7 +101,7 @@ class StartPage(tk.Frame):
         self.my_canvas.create_image(0,0, image=self.new_img, anchor='nw')
         # Add text back
         self.my_canvas.create_text(180, 330, text = 'SRMS 1.0', font=("Arial black", 40, 'bold italic'), fill='white')
-
+        '''
     
 
     def menubar(self, root):
@@ -111,16 +112,18 @@ class SignUp(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-
+        
+        self.controller = controller
         # Image import
-        self.img = Image.open("images/lib2.jpg")
-        self.img = self.img.resize((1358,748))
+        self.img = Image.open("images/lib2.jpg")     
+        self.img = self.img.resize((self.controller.winfo_screenwidth(), self.controller.winfo_screenheight()))
 
         # There is the need to specify the master tk instance since ImageTK is a second instance of tkinter
         self.img = ImageTk.PhotoImage(self.img, master=self)
         # Define canvas
-        self.my_canvas = tk.Canvas(self, width=1360, height=750)
-        self.my_canvas.grid(row=0, column = 0)
+        self.my_canvas = tk.Canvas(self)
+        self.my_canvas.pack(side='top', fill='both', expand=True)
+     
         # Put the image on the canvas
         self.my_canvas.create_image(0,0, image=self.img, anchor='nw')
         # Add label
@@ -193,12 +196,14 @@ class Login(tk.Frame):
         self.controller = controller
         # Image import
         self.img = Image.open("images/lib3.jpg")
-        self.img = self.img.resize((1358,748))
+        self.img = self.img.resize((self.controller.winfo_screenwidth(), self.controller.winfo_screenheight()))
+
         # There is the need to specify the master tk instance since ImageTK is a second instance of tkinter
         self.img = ImageTk.PhotoImage(self.img, master=self)
+
         # Define canvas
-        self.my_canvas = tk.Canvas(self, width=1360, height=750)
-        self.my_canvas.grid(row=0, column = 0)
+        self.my_canvas = tk.Canvas(self)
+        self.my_canvas.pack(side='top', fill='both', expand=True)
 
         # Put the image on the canvas
         self.my_canvas.create_image(0,0, image=self.img, anchor='nw')

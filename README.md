@@ -3,7 +3,7 @@
 ### A secure desktop app designed for use by a high school teacher to manage students' records.
 
 ### This application is a Graphical User Interface (GUI) with an embedded database. With it, a user can store records such as scores and attendance logs.
-### The app also aids instructors by computing students' total scores from input grades and determining the respective positions of each student in a class.
+### The app also aids the teacher by computing students' total scores from input grades and determining the respective positions of each student in a class.
 <br>
 
 ## Features:

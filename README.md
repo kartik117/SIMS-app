@@ -7,8 +7,8 @@
 <br>
 
 ## Features:
-* ### PC integration with user's directories to allow import of lists of students from existing Excel spreadsheets or CSV files.
 * ### Registration and login.
+* ### PC integration with user's directories to allow import of lists of students from existing Excel spreadsheets or CSV files.
 * ### Notepad for preparing and saving lesson notes. Notes can be exported to MS Word.
 * ### Timetable: a daily outline of classes to be taught. 
 <br>
@@ -36,7 +36,7 @@ If any error in record, click on the course in the view, edit in entry box. Clic
 Select "My Classes" tab on navigation bar.  
 
 * Add students  
-Select "Add/Edit Students" tab to add students individually. 
+Select "Add/Edit Students" tab to add students individually.  
 Select "Upload Students" to import excel spreadsheet containing students' records. (List must have 3 columns- first name, last name and gender)
  
 ### Languages

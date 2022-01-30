@@ -26,14 +26,15 @@ Enter name and password.
 
 * Add courses taught  
 On successful login, the first page to be viewed is the courses module.  
-A navigation bar and file menu are on the page for access to other functionalities.
-"My Courses" tab is pre-selected.
+A navigation bar and file menu are on the page for access to other functionalities.  
+"My Courses" tab is pre-selected.  
 Here, user can add the various courses she teaches.  
 Enter one course at a time and its course code (if applicable) in their respective entry boxes. Click on "Add Record".  
-If any error in record, click on the course in the view, edit in entry box. Click "Update Record".
+If there is any error in the record, select on the course in the view, edit it in entry box. Then click "Update Record".
 
 * Add classes taught  
 Select "My Classes" tab on navigation bar.  
+Enter class and click on "Add Record"
 
 * Add students  
 Select "Add/Edit Students" tab to add students individually.  

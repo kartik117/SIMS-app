@@ -15,7 +15,6 @@
 
 ## User onboarding process:
 * Open app  
-
 ![](images/sims%20intro.jpg)
 
 * Sign up  

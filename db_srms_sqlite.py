@@ -27,7 +27,9 @@ class Database:
                         class_name TEXT NOT NULL,
                         FOREIGN KEY (class_name) REFERENCES class (class_name)
                         );"""),
+                # correct enrollment to enrolment
         self.cur.execute("""
+                         
                 CREATE TABLE IF NOT EXISTS enrollment (
                         enrollment_id INTEGER NOT NULL PRIMARY KEY,
                         course_id INTEGER NOT NULL,

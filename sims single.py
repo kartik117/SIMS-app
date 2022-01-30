@@ -73,7 +73,7 @@ class StartPage(tk.Frame):
         self.my_canvas.create_image(0,0, image=self.img, anchor='nw')
 
         # Add label
-        self.my_canvas.create_text(180, 250, text = 'SRMS 1.0', font=("Arial black", 40, 'bold italic'), fill='white')
+        self.my_canvas.create_text(180, 250, text = 'SIMS 1.0', font=("Arial black", 40, 'bold italic'), fill='white')
         self.my_canvas.create_text(120, 285, text = 'All your records at the touch of a button.', font=("Arial black", 10), fill='white', anchor='nw')
 
         # Add buttons

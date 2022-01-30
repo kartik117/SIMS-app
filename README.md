@@ -47,6 +47,7 @@ Select "Upload Students" to import excel spreadsheet containing students' record
 * Tkinter
 * SQLite3
 * Pandas
+* OS
 * PIL
 
   

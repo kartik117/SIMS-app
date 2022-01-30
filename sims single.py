@@ -78,10 +78,10 @@ class StartPage(tk.Frame):
 
         # Add buttons
         login_button = ttk.Button(self, text = 'Login', width = 25, command=lambda: controller.show_frame(Login))
-        register_button = ttk.Button(self, text = 'Register', width = 25, command=lambda: controller.show_frame(SignUp))
+        signup_button = ttk.Button(self, text = 'Sign Up', width = 25, command=lambda: controller.show_frame(SignUp))
         # Button windows
         login_button_window = self.my_canvas.create_window(500, 350, anchor= 'nw', window=login_button)
-        register_button_window = self.my_canvas.create_window(750, 350, anchor= 'nw', window=register_button)
+        signup_button_window = self.my_canvas.create_window(750, 350, anchor= 'nw', window=signup_button)
 
         '''
         # Glitches the transition from login screen to dashboard (tiny but noticeable) 

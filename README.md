@@ -16,8 +16,9 @@
 ## User onboarding process:
 * Open app
 * Sign up  
-Navigate to sign up page.  
-Enter username and password (password entered twice for validation).  
+Click "Sign Up" to navigate to sign up page.  
+Enter username and password (password entered twice for validation).
+Click "Create Account"
 
 
 * Login  

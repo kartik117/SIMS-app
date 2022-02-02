@@ -14,7 +14,9 @@
 <br>
 
 ## User onboarding process:
-* Open app
+* Open app  
+![](images/sims%20intro.jpg)
+
 * Sign up  
 Click "Sign Up" to navigate to sign up page.  
 Enter username and password (password entered twice for validation).
@@ -40,8 +42,6 @@ Enter class and click on "Add Record"
 * Add students  
 Select "Add/Edit Students" tab to add students individually.  
 Select "Upload Students" to import excel spreadsheet containing students' records. (List must have 3 columns- first name, last name and gender)
-
-![](images/sims%20intro.jpg)
 
 
 ### Database ERD

@@ -73,7 +73,7 @@ class StartPage(tk.Frame):
         self.my_canvas.create_image(0,0, image=self.img, anchor='nw')
 
         # Add label
-        self.my_canvas.create_text(180, 250, text = 'SIMS 1.0', font=("Arial black", 40, 'bold italic'), fill='white')
+        self.my_canvas.create_text(180, 250, text = 'SIMS', font=("Arial black", 40, 'bold italic'), fill='white')
         self.my_canvas.create_text(120, 285, text = 'All your records at the touch of a button.', font=("Arial black", 10), fill='white', anchor='nw')
 
         # Add buttons
@@ -127,9 +127,9 @@ class SignUp(tk.Frame):
         # Put the image on the canvas
         self.my_canvas.create_image(0,0, image=self.img, anchor='nw')
         # Add label
-        self.my_canvas.create_text(450, 208, text = 'Enter your username or ID.', font=("Arial black", 12, 'italic'), fill='white', anchor='nw')
-        self.my_canvas.create_text(450, 278, text = 'Enter your password.', font=("Arial black", 12, 'italic'), fill='white', anchor='nw')
-        self.my_canvas.create_text(450, 348, text = 'Retype password.', font=("Arial black", 12, 'bold italic'), fill='white', anchor='nw')
+        self.my_canvas.create_text(510, 268, text = 'Enter your username or ID.', font=("Arial black", 12, 'italic'), fill='white', anchor='nw')
+        self.my_canvas.create_text(510, 338, text = 'Enter your password.', font=("Arial black", 12, 'italic'), fill='white', anchor='nw')
+        self.my_canvas.create_text(510, 408, text = 'Retype password.', font=("Arial black", 12, 'bold italic'), fill='white', anchor='nw')
 
         # Variables
         self.temp_username = tk.StringVar()
@@ -149,10 +149,10 @@ class SignUp(tk.Frame):
                           command=lambda: controller.show_frame(StartPage))
 
         # Create button windows
-        username_entry_window = self.my_canvas.create_window(450, 230, anchor= 'nw', window=self.username_entry)
-        pw_entry_window = self.my_canvas.create_window(450, 300, anchor= 'nw', window=self.password_entry)
-        confirm_pw_entry_window = self.my_canvas.create_window(450, 370, anchor= 'nw', window=self.confirm_password_entry)
-        sign_up_button_window = self.my_canvas.create_window(450, 440, anchor= 'nw', window=sign_up_button)
+        username_entry_window = self.my_canvas.create_window(510, 290, anchor= 'nw', window=self.username_entry)
+        pw_entry_window = self.my_canvas.create_window(510, 360, anchor= 'nw', window=self.password_entry)
+        confirm_pw_entry_window = self.my_canvas.create_window(510, 430, anchor= 'nw', window=self.confirm_password_entry)
+        sign_up_button_window = self.my_canvas.create_window(510, 500, anchor= 'nw', window=sign_up_button)
         login_button_window = self.my_canvas.create_window(1000, 50, anchor= 'nw', window=login_button)
         back_to_home_button_window = self.my_canvas.create_window(1150, 50, anchor= 'nw', window=back_to_home_button)
 
@@ -209,8 +209,8 @@ class Login(tk.Frame):
         self.my_canvas.create_image(0,0, image=self.img, anchor='nw')
 
         # Add label
-        self.my_canvas.create_text(450, 216, text = 'Enter your username or ID.', font=("Arial black", 12, 'bold italic'), fill='white', anchor='nw')
-        self.my_canvas.create_text(450, 286, text = 'Enter your password.', font=("Arial black", 12, 'bold italic'), fill='white', anchor='nw')
+        self.my_canvas.create_text(510, 256, text = 'Enter your username or ID.', font=("Arial black", 12, 'bold italic'), fill='white', anchor='nw')
+        self.my_canvas.create_text(510, 326, text = 'Enter your password.', font=("Arial black", 12, 'bold italic'), fill='white', anchor='nw')
 
         # Variables
         self.temp_login_name = tk.StringVar()
@@ -232,9 +232,9 @@ class Login(tk.Frame):
                           command=lambda: controller.show_frame(SignUp))
 
         # Create button windows
-        username_entry_window = self.my_canvas.create_window(450, 238, anchor= 'nw', window=self.username_entry1)
-        pw_entry_window = self.my_canvas.create_window(450, 308, anchor= 'nw', window=self.password_entry1)
-        login_button_window = self.my_canvas.create_window(450, 408, anchor= 'nw', window=login_button)
+        username_entry_window = self.my_canvas.create_window(510, 278, anchor= 'nw', window=self.username_entry1)
+        pw_entry_window = self.my_canvas.create_window(510, 348, anchor= 'nw', window=self.password_entry1)
+        login_button_window = self.my_canvas.create_window(510, 448, anchor= 'nw', window=login_button)
         sign_up_button_window = self.my_canvas.create_window(1000, 50, anchor= 'nw', window=sign_up_button)
         back_to_home_button_window = self.my_canvas.create_window(1150, 50, anchor= 'nw', window=back_to_home_button)
 

@@ -11,7 +11,7 @@ from tkinter import ttk
 
 
 
-from assessments import CreateAssessment
+from assessments import CreateAssessment, AssessmentTreeview
 
 
 
@@ -23,7 +23,7 @@ class NavBarAssessment(tk.Frame):
         self.pack(side='left', fill='both', pady=26)
               
         nav_button=tk.Button(self, text='Assessments', width=25, anchor=tk.W, fg='white', font=("Calibri", 12, 'bold'), bg='#394552',
-                          command=lambda: self.our_command)
+                          command=lambda: self.show_assessments())
         nav_button.grid(row=0, column=0, sticky=tk.W, pady=(10, 0), padx=10)
         
         nav_button.grid(row=1, column=0, sticky=tk.W, pady=10, padx=10)
@@ -46,16 +46,16 @@ class NavBarAssessment(tk.Frame):
     
     def show_assessments(self):
         # Clear off whichever frame is currently displayed
-        for widget in self.parent.winfo_children():
-            widget.destroy()
+        self.parent.winfo_children()[1].destroy()
         # Create class treeview frame
-        #self.parent.treeview = AssessmentTreeview(self.parent)
+        self.parent.treeview = AssessmentTreeview(self.parent)
 
     def create_assessment(self):
         # Clear off whichever frame is currently displayed
         self.parent.winfo_children()[1].destroy()
         # Create class treeview frame
-        self.parent.treeview = CreateAssessment(self.parent)
+        self.parent.assess_frame = CreateAssessment(self.parent)
+        
     
     def enroll_class_in_course(self):
         # Clear off whichever frame is currently displayed

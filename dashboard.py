@@ -12,7 +12,7 @@ from tkinter import ttk, filedialog
 from navbar import NavBar
 from coursetreeview import CourseTreeview
 from navbar_assess import NavBarAssessment
-from assessments import CreateAssessment
+from assessments import CreateAssessment, AssessmentTreeview
 
 
 class Dashboard(tk.Frame):
@@ -138,6 +138,7 @@ class Dashboard(tk.Frame):
         for widget in self.winfo_children():
             widget.destroy()
         self.navbar = NavBarAssessment(self)
-        assessment_page = CreateAssessment(self)
+        assessment_treeview = AssessmentTreeview(self)
+
     
   

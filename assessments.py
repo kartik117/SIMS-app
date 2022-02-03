@@ -18,7 +18,7 @@ class CreateAssessment(tk.Frame):
     def __init__(self, parent): 
         tk.Frame.__init__(self, parent)
         
-        self.pack(side='right', fill='both', expand=True)
+        self.pack(side='left', fill='both', expand=True)
         
         
         
@@ -136,5 +136,70 @@ class AssessmentTreeview(tk.Frame):
         tk.Frame.__init__(self, parent)
         
         self.pack(side='right', fill='both', expand=True)
+
+        # Add Search Box (Rememeber to implement 'Search' showing in bar )
+        search_box = tk.Entry(self, width=60)
+        search_box.pack(pady=4, padx=2, anchor=tk.NE)
+
+        # Add some style
+        style = ttk.Style()
+        # Pick a theme
+        #style.theme_use("default")
+        # Configure our treeview colours
+        style.configure("Treeview",
+                        background="#D3D3D3",
+                        foreground="black",
+                        rowheight=20,
+                        fieldbackground="#D3D3D3"
+                        )
+        # Change selected colour
+        style.map('Treeview',
+                  background=[('selected', '#73c2fb')]) #a4bce9
+
+        # Create Treeview Frame
+        tree_frame = tk.Frame(self)
+        tree_frame.pack(fill=tk.X, anchor=tk.N, padx=(20, 0))
+
+        # Treeview Scrollbar
+        tree_scroll = tk.Scrollbar(tree_frame)
+        tree_scroll.pack(side=tk.RIGHT, fill=tk.Y, pady=(2,0))
+
+        # Create Treeview
+        self.my_tree = ttk.Treeview(tree_frame, yscrollcommand=tree_scroll.set, selectmode='extended', height=25, bd=0)
+        # Pack to the screen
+        self.my_tree.pack(fill=tk.X)
+
+        # Configure scrollbar
+        tree_scroll.config(command=self.my_tree.yview)
+
+        # Define our columns. Reserve two extra null columns for subsequent child rows i.e student first and last names
+        self.my_tree['columns'] = ('ID', 'Course', 'Course code', 'Class', 'R.Id', '', '')
+
+        # Format our columns
+        self.my_tree.column("#0", stretch=tk.NO, width=50)
+        self.my_tree.column("ID", anchor=tk.CENTER, stretch=tk.NO, width=0)
+        self.my_tree.column("Course", anchor=tk.W, stretch=tk.NO, width=200)
+        self.my_tree.column("Course code", anchor=tk.W, width=100)
+        self.my_tree.column("Class", anchor=tk.W, width=50)
+        self.my_tree.column("R.Id", anchor=tk.W, width=30)
+        self.my_tree.column("", anchor=tk.W, width=800)
+        self.my_tree.column("", anchor=tk.W, width=1200)
+
+        # Create Column headings
+        self.my_tree.heading("#0", text="", anchor=tk.W)
+        self.my_tree.heading("ID", text="ID", anchor=tk.CENTER)
+        self.my_tree.heading("Course", text="Course", anchor=tk.W)
+        self.my_tree.heading("Course code", text="Course code", anchor=tk.W)
+        self.my_tree.heading("Class", text="Class", anchor=tk.W)
+        self.my_tree.heading("R.Id", text="R.Id", anchor=tk.W)
+        self.my_tree.heading("", text="", anchor=tk.W)
+        self.my_tree.heading("", text="", anchor=tk.W)
+
+        # Create striped Treeview rows
+        self.my_tree.tag_configure("oddrow", background="white")
+        self.my_tree.tag_configure("evenrow", background="#f3f3f4")
+        
+        
+        
         
         

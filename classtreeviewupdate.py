@@ -79,7 +79,7 @@ class ClassTreeviewII(tk.Frame):
         
         # Create session frame
         session_frame = tk.LabelFrame(self, text="Enter year")
-        session_frame.pack(fill='x', expand='yes', padx=(20, 17))
+        session_frame.pack(fill='x', expand='yes', padx=(20, 17), pady=5)
         
         # Create entry boxes for academic year and term     
         session_label = tk.Label(session_frame, text="Academic Year")
@@ -129,6 +129,8 @@ class ClassTreeviewII(tk.Frame):
 
     # Populate treeview from database
     def populate_treeview(self):
+        # Clear tree currently in view
+        self.my_tree.delete(*self.my_tree.get_children())  
         # Create counter (Treeview stripes)
         self.count = 1000
         self.count_class = 100
@@ -223,6 +225,8 @@ class ClassTreeviewII(tk.Frame):
             for record in db.fetch_student():
                 if record[4] == self.class_select.get():
                     db.insert_enrollment(cid, record[0], self.class_select.get(), datetime.datetime.now())
+                    self.populate_treeview()
+
         else:
             messagebox.showinfo("Selection Incomplete.","Please select class and course.")
 

@@ -162,24 +162,27 @@ class SignUp(tk.Frame):
         if self.temp_password.get() != self.temp_confirm_password.get():
             messagebox.showerror('Password Error', 'Your passwords do not match.')
             return
-
+        # Create a list from file names in the directory
         list_of_files = os.listdir()
+        # Check if a file named single user has already been created. App's file of login name and passwords will be named single user
         if 'single user' not in list_of_files:
             username_info = self.temp_username.get()
             password_info = self.temp_password.get()
-
+            # Create file to store login name and passwords named single user
             file = open('single user', 'w')
             file.write(username_info+'\n')
             file.write(password_info)
             file.close()
-
+            # Clear user entries
             self.username_entry.delete(0, tk.END)
             self.password_entry.delete(0, tk.END)
             self.confirm_password_entry.delete(0, tk.END)
-
+            # Notifications
+            # To be replaced by text that will print on canvas. Copy from start page style
             label5 = tk.Label(self, text = "Registration successful.\nClick login to log into your account", fg = "green", font = ("Calibri", 11))
             label5.grid(row=9, padx=10, sticky=tk.W)
         else:
+            # To be replaced by text that will print on canvas. Copy from start page style
             label5 = tk.Label(self, text = "Registration unsuccessful.\n(Single User App)", fg = "red", font = ("Calibri", 11))
             label5.grid(row=9,padx=10, sticky=tk.W)
 
@@ -224,7 +227,7 @@ class Login(tk.Frame):
 
         # Buttons
         login_button = tk.Button(self, text = 'SIGN IN', font=('Calibri', 12, 'bold'), width=48, height=2,
-                            command= lambda : [controller.show_frame(Dashboard), controller.resizable(self, width= True, height = True)] if self.verify_login() == 1 else messagebox.showerror('', 'Login Unsuccessful.'))#self.verify_login)
+                            command= lambda : controller.show_frame(Dashboard) if self.verify_login() == 1 else messagebox.showerror('', 'Login Unsuccessful.'))#self.verify_login)
         login_button.bind("<Return>", self.login_check)
         back_to_home_button=ttk.Button(self, text='Back to Home', width=20,
                           command=lambda: controller.show_frame(StartPage))
@@ -247,18 +250,30 @@ class Login(tk.Frame):
         file_data = file_data.split('\n')
 
         # Validation
+        # Check if login name entered matches stored login name
         if self.temp_login_name.get() == file_data[0]:
+            # Case where password entered matches stored password
             if self.temp_login_password.get() == file_data[1]:
+                # Set the variable to be returned
                 self.login_attempt = 1
-                # clear user's entries from input bar after login button is clicked
+                # Clear user's entries from input bar after login button is clicked
                 self.clear_entry()
             else:
+                # Password entered does not match stored password
                 messagebox.showerror('Password Error', 'Incorrect password.')
-                # clear user's entries from input bar after message popup button is clicked
+                # Clear user's entries from input bar after message popup button is clicked
                 self.clear_entry()
                 return
-        elif self.temp_login_name.get() == file_data[2]:
-            if self.temp_login_password.get() == file_data[3]:
+            
+            '''
+            For additional user logins
+            
+            # Login button will have nested lamda function as command 
+            command= lambda : controller.show_frame(Dashboard) if self.verify_login() == 1 else (controller.show_frame(Admin) if self.verify_login == 2 else messagebox.showerror('', 'Login Unsuccessful.')))
+
+            
+        elif self.temp_login_name.get() == file_data[2]: # Where second user's name is file_data[2]
+            if self.temp_login_password.get() == file_data[3]: # Second user's password is file_data[3]
                self.login_attempt = 2
                # clear user's entries from input bar after login button is clicked
                # self.clear_entry()
@@ -267,7 +282,9 @@ class Login(tk.Frame):
                 # clear user's entries from input bar after message popup button is clicked
                 self.clear_entry()
                 return
+            '''
         else:
+            # Login name entered does not match stored login name
             self.login_attempt = 0
             #messagebox.showerror('Account Error', 'No account found!')
         return self.login_attempt

@@ -165,7 +165,7 @@ class AssessmentTreeview(tk.Frame):
         tree_scroll.pack(side=tk.RIGHT, fill=tk.Y, pady=(2,0))
 
         # Create Treeview
-        self.my_tree = ttk.Treeview(tree_frame, yscrollcommand=tree_scroll.set, selectmode='extended', height=25, bd=0)
+        self.my_tree = ttk.Treeview(tree_frame, yscrollcommand=tree_scroll.set, selectmode='extended', height=25)
         # Pack to the screen
         self.my_tree.pack(fill=tk.X)
 
@@ -173,7 +173,7 @@ class AssessmentTreeview(tk.Frame):
         tree_scroll.config(command=self.my_tree.yview)
 
         # Define our columns. Reserve two extra null columns for subsequent child rows i.e student first and last names
-        self.my_tree['columns'] = ('ID', 'Course', 'Course code', 'Class', 'R.Id', '', '')
+        self.my_tree['columns'] = ('ID', 'Course', 'Course code', 'Class', 'R.Id', '', '', 'Assessment', 'Score')
 
         # Format our columns
         self.my_tree.column("#0", stretch=tk.NO, width=50)
@@ -182,8 +182,12 @@ class AssessmentTreeview(tk.Frame):
         self.my_tree.column("Course code", anchor=tk.W, width=100)
         self.my_tree.column("Class", anchor=tk.W, width=50)
         self.my_tree.column("R.Id", anchor=tk.W, width=30)
-        self.my_tree.column("", anchor=tk.W, width=800)
-        self.my_tree.column("", anchor=tk.W, width=1200)
+        self.my_tree.column("", anchor=tk.W, width=400)
+        self.my_tree.column("", anchor=tk.W, width=400)
+        self.my_tree.column("Assessment", anchor=tk.W, width=1200)
+        self.my_tree.column("Score", anchor=tk.W, width=1200)
+
+
 
         # Create Column headings
         self.my_tree.heading("#0", text="", anchor=tk.W)
@@ -194,6 +198,9 @@ class AssessmentTreeview(tk.Frame):
         self.my_tree.heading("R.Id", text="R.Id", anchor=tk.W)
         self.my_tree.heading("", text="", anchor=tk.W)
         self.my_tree.heading("", text="", anchor=tk.W)
+        self.my_tree.heading("Assessment", text="", anchor=tk.W)
+        self.my_tree.heading("Score", text="", anchor=tk.W)
+
 
         # Create striped Treeview rows
         self.my_tree.tag_configure("oddrow", background="white")

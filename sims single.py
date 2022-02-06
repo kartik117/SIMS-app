@@ -100,7 +100,7 @@ class StartPage(tk.Frame):
         # Add it back to the canvas
         self.my_canvas.create_image(0,0, image=self.new_img, anchor='nw')
         # Add text back
-        self.my_canvas.create_text(180, 330, text = 'SRMS 1.0', font=("Arial black", 40, 'bold italic'), fill='white')
+        self.my_canvas.create_text(180, 330, text = 'SIMS ', font=("Arial black", 40, 'bold italic'), fill='white')
         '''
     
 
@@ -234,7 +234,7 @@ class Login(tk.Frame):
         sign_up_button=ttk.Button(self, text='Sign Up', width=20,
                           command=lambda: controller.show_frame(SignUp))
 
-        # Create button windows
+        # Create button windows on canvas
         username_entry_window = self.my_canvas.create_window(510, 278, anchor= 'nw', window=self.username_entry1)
         pw_entry_window = self.my_canvas.create_window(510, 348, anchor= 'nw', window=self.password_entry1)
         login_button_window = self.my_canvas.create_window(510, 448, anchor= 'nw', window=login_button)

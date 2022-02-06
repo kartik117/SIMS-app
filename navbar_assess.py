@@ -11,8 +11,7 @@ from tkinter import ttk
 
 
 
-from assessments import CreateAssessment, AssessmentTreeview
-
+from assessments import CreateAssessment, AssessmentTreeview, AssessmentCombined
 
 
 class NavBarAssessment(tk.Frame):
@@ -31,7 +30,7 @@ class NavBarAssessment(tk.Frame):
                           command=lambda: self.create_assessment())
         nav_button.grid(row=2, column=0, sticky=tk.W, padx=30, pady=10)
         nav_button=tk.Button(self, text='Record Assessments', width=25, bg='#394552', fg='white', bd=0, font=('Calibri', 12), anchor=tk.W,
-                          command=lambda: self.our_command)
+                          command=lambda: self.enroll())
         nav_button.grid(row=3, column=0, sticky=tk.W, padx=30, pady=10)        
         enroll_button=tk.Button(self, text='Evaluation', width=25, bg='#394552', bd=0, fg='white', font=('Calibri', 12), anchor=tk.W,
                           command=lambda: self.our_command)
@@ -45,23 +44,44 @@ class NavBarAssessment(tk.Frame):
         
     
     def show_assessments(self):
-        # Clear off whichever frame is currently displayed
-        self.parent.winfo_children()[1].destroy()
-        # Create class treeview frame
-        self.parent.treeview = AssessmentTreeview(self.parent)
-
-    def create_assessment(self):
-        # Clear off whichever frame is currently displayed
-        self.parent.winfo_children()[1].destroy()
-        # Create class treeview frame
-        self.parent.assess_frame = CreateAssessment(self.parent)
+        '''
+        Clear widgets currently on screen so as to display new widgets
+        '''          
+        # Check if user is already on Assessments. 
+        # Use of in operator instead of == operator as caution against prior observation that when a course/class was selected, 
+        # clicking on assessments reloaded frame
         
-    
-    def enroll_class_in_course(self):
-        # Clear off whichever frame is currently displayed
-        self.parent.winfo_children()[1].destroy()
-        # Create add course treeview frame
-        self.parent.treeview = ClassTreeviewII(self.parent)
+        if '.!frame.!dashboard.!assessmentcombined' in str(self.parent.winfo_children()[1]): 
+            return
+        else:
+            for widget in self.parent.winfo_children():
+                if repr(widget) != '<navbar_assess.NavBarAssessment object .!frame.!dashboard.!navbarassessment>': # To avoid deleting the navbar widget
+                    # Clear all widgets off screen
+                    widget.destroy()
+            # Create assess frame and assessment treeview as attributes of navbar's parent object i.e Dashboard
+            self.parent.assess_frame = AssessmentCombined(self.parent)
+            self.parent.treeview = AssessmentTreeview(self.parent)
+            
+    def create_assessment(self):
+        '''
+        Clear widgets currently on screen so as to display new widgets          
+        '''
+        # Check if user is already on Create Assessments. 
+        # Use of in operator instead of == operator as caution against prior observation that when a course/class was selected, 
+        # clicking on create assessments reloaded the frame
+        
+        if '.!frame.!dashboard.!createassessment' in str(self.parent.winfo_children()[1]): 
+            return
+        else:
+            for widget in self.parent.winfo_children():
+                if '.!navbarassessment' not in repr(widget): # To avoid deleting the navbar widget
+                    # Clear all widgets off screen
+                    widget.destroy()
+            # Create 'create_assessment' frame as an attribute of navbar's parent object i.e Dashboard
+            self.parent.create_frame = CreateAssessment(self.parent)
+     
+    def enroll(self):
+        pass
         
     def add_student(self):
         # Clear off whichever frame is currently displayed

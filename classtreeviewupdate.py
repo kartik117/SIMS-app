@@ -218,15 +218,22 @@ class ClassTreeviewII(tk.Frame):
         if self.course_select.get() != "Select course" and self.class_select.get() != "Select class":
             # Obtain course id
             course_list = db.fetch_course()
+            
             for course in course_list:
+                # Compare course entry with course name and course code fetched from database
                 if self.course_select.get().split('  ')[0] == course[1] and self.course_select.get().split('  ')[1] == course[2]: # I used a double space when merging both course name and course code. For easier readability
-                    # Assign course id to variable. Chose not to use course_id as variable name
+                    # Assign course id to variable cid. Chose not to use course_id as variable name
                     cid = course[0]
-            for record in db.fetch_student():
-                if record[4] == self.class_select.get():
-                    db.insert_enrollment(cid, record[0], self.class_select.get(), datetime.datetime.now())
-                    self.populate_treeview()
-
+            # Check if class has already been enrolled for course.
+            for enrollment in db.fetch_enrollments_grouped(cid):
+                if enrollment[1] == self.class_select.get() and enrollment[2] == self.course_select.get().split('  ')[0]:
+                    messagebox.showinfo("Enrolment.","This class has been enrolled for the course.")
+                else:
+                     for record in db.fetch_student():
+                         # Check for match between class entry and student's class, then create enrollment
+                         if record[4] == self.class_select.get():
+                             db.insert_enrollment(cid, record[0], self.class_select.get(), datetime.datetime.now())
+                             self.populate_treeview()
         else:
             messagebox.showinfo("Selection Incomplete.","Please select class and course.")
 

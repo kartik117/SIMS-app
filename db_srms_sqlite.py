@@ -146,6 +146,7 @@ class Database:
         return rows
     
     def fetch_enrollments(self):
+        # This query fetches individual student enrollments
         self.cur.execute("SELECT student.student_first_name, student.student_last_name, enrollment.class_name, course.course_name, enrollment.date FROM student JOIN enrollment ON enrollment.student_id = student.student_id JOIN course ON enrollment.course_id = course.course_id")
         rows = self.cur.fetchall()
         return rows

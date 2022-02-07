@@ -78,71 +78,43 @@ class CreateAssessment(tk.Frame):
         # Create dropdown menu of classes
         class_dropdown_menu = ttk.OptionMenu(course_frame, self.class_select, *self.class_list)
         class_dropdown_menu.grid(row=3, column=0, pady=(5,80), padx=10)
-        
+        '''
         holder_frame = tk.Frame(self) # wraps around assessment frame
         holder_frame.pack(side='left', fill='both', pady=26)
         
         # Create assessment frame
-        assessment_frame = tk.LabelFrame(holder_frame, bg='white', borderwidth=0, width=150)
+        assessment_frame = tk.LabelFrame(holder_frame, bg='white', borderwidth=0)
         assessment_frame.pack(side='top',fill='both', expand=True)
         # Create assessment type dropdown menu
         assessment_label = tk.Label(assessment_frame, text="Assessment type", bg='white')
         assessment_label.grid(row=0, column=0, columnspan=2, pady=(10, 20), padx=10, sticky='W')
         # Set assessment variables and create checkboxes
-        self.first_assessment_select = tk.StringVar()
-        checkbox1 = ttk.Checkbutton(assessment_frame, text="First test", variable=self.first_assessment_select, onvalue="First test", offvalue="")
+        self.assessment_select = tk.StringVar()
+        checkbox1 = ttk.Checkbutton(assessment_frame, text="First test", variable=self.assessment_select, onvalue="First test", offvalue="")
         checkbox1.grid(row=1, column=0, pady=(5,10), padx=10, sticky=tk.W)
-        self.second_assessment_select = tk.StringVar()
-        checkbox2 = ttk.Checkbutton(assessment_frame, text="Second test", variable=self.second_assessment_select, onvalue="Second test", offvalue="")
+        checkbox2 = ttk.Checkbutton(assessment_frame, text="Second test", variable=self.assessment_select, onvalue="Second test", offvalue="")
         checkbox2.grid(row=2, column=0, pady=(5,10), padx=10, sticky=tk.W)
-        self.third_assessment_select = tk.StringVar()
-        checkbox3 = ttk.Checkbutton(assessment_frame, text="Third test", variable=self.third_assessment_select, onvalue="Third test", offvalue="")
+        checkbox3 = ttk.Checkbutton(assessment_frame, text="Third test", variable=self.assessment_select, onvalue="Third test", offvalue="")
         checkbox3.grid(row=3, column=0, pady=(5,10), padx=10, sticky=tk.W)
-        self.project_select = tk.StringVar()
-        checkbox4 = ttk.Checkbutton(assessment_frame, text="Project", variable=self.project_select, onvalue="Project", offvalue="")
+        checkbox4 = ttk.Checkbutton(assessment_frame, text="Project", variable=self.assessment_select, onvalue="Project", offvalue="")
         checkbox4.grid(row=4, column=0, pady=(5,10), padx=10, sticky=tk.W)      
-        self.assignment_select = tk.StringVar()
-        checkbox5 = ttk.Checkbutton(assessment_frame, text="Assignment", variable=self.assignment_select, onvalue="Assignment", offvalue="")
+        checkbox5 = ttk.Checkbutton(assessment_frame, text="Assignment", variable=self.assessment_select, onvalue="Assignment", offvalue="")
         checkbox5.grid(row=5, column=0, pady=(5,10), padx=10, sticky=tk.W)
-        self.home_work_select = tk.StringVar()
-        checkbox6 = ttk.Checkbutton(assessment_frame, text="Home work", variable=self.home_work_select, onvalue="Home work", offvalue="")
+        checkbox6 = ttk.Checkbutton(assessment_frame, text="Home work", variable=self.assessment_select, onvalue="Home work", offvalue="")
         checkbox6.grid(row=6, column=0, pady=(5,10), padx=10, sticky=tk.W)
-        self.lab_select = tk.StringVar()
-        checkbox7 = ttk.Checkbutton(assessment_frame, text="Laboratory", variable=self.lab_select, onvalue="Laboratry", offvalue="")
+        checkbox7 = ttk.Checkbutton(assessment_frame, text="Laboratory", variable=self.assessment_select, onvalue="Laboratry", offvalue="")
         checkbox7.grid(row=7, column=0, pady=(5,10), padx=10, sticky=tk.W)
-        self.examination_select = tk.StringVar()
-        checkbox8 = ttk.Checkbutton(assessment_frame, text="Examination", variable=self.examination_select, onvalue="Examination", offvalue="")
+        checkbox8 = ttk.Checkbutton(assessment_frame, text="Examination", variable=self.assessment_select, onvalue="Examination", offvalue="")
         checkbox8.grid(row=8, column=0, pady=(5,10), padx=10, sticky=tk.W)
         # Set other_assessment variable and combobox
         self.other_assessment_select = tk.StringVar()
-        self.other_assessment_list = ["Select other assessment"]
+        self.other_assessment_list = ["Enter other assessment"]
         other_assessments = ttk.Combobox(assessment_frame, values=self.other_assessment_list, width=25)
         other_assessments.grid(row=9, column=0, columnspan=2, pady=10, padx=10, sticky=tk.W)
         other_assessments.set(self.other_assessment_list[0])
+        '''
         
-        # Create maximum score entry boxes
-        score= tk.Label(assessment_frame, text="Maximum score", bg='white')
-        score.grid(row=0, column=3, pady=(10, 20), padx=10, sticky='W')
-        score_box = tk.Entry(assessment_frame, text=score, width=15, borderwidth=0, bg='#f3f3f4')
-        score_box.grid(row=1, column=3, pady=(0,10), padx=20)
-        score_box1 = tk.Entry(assessment_frame, text=score, width=15, borderwidth=0, bg='#f3f3f4')
-        score_box1.grid(row=2, column=3, pady=9, padx=20)
-        score_box2 = tk.Entry(assessment_frame, text=score, width=15, borderwidth=0, bg='#f3f3f4')
-        score_box2.grid(row=3, column=3, pady=9, padx=20)
-        score_box3 = tk.Entry(assessment_frame, text=score, width=15, borderwidth=0, bg='#f3f3f4')
-        score_box3.grid(row=4, column=3, pady=9, padx=20)
-        score_box4 = tk.Entry(assessment_frame, text=score, width=15, borderwidth=0, bg='#f3f3f4')
-        score_box4.grid(row=5, column=3, pady=9, padx=20)
-        score_box5 = tk.Entry(assessment_frame, text=score, width=15, borderwidth=0, bg='#f3f3f4')
-        score_box5.grid(row=6, column=3, pady=9, padx=20)
-        score_box6 = tk.Entry(assessment_frame, text=score, width=15, borderwidth=0, bg='#f3f3f4')
-        score_box6.grid(row=7, column=3, pady=9, padx=20)
-        score_box7 = tk.Entry(assessment_frame, text=score, width=15, borderwidth=0, bg='#f3f3f4')
-        score_box7.grid(row=8, column=3, pady=9, padx=20)
-        score_box8 = tk.Entry(assessment_frame, text=score, width=15, borderwidth=0, bg='#f3f3f4')
-        score_box8.grid(row=9, column=3, pady=9, padx=20)
        
-
 class AssessmentTreeview(tk.Frame):
     def __init__(self, parent): 
         tk.Frame.__init__(self, parent)
@@ -150,8 +122,8 @@ class AssessmentTreeview(tk.Frame):
         self.pack(side='top', fill='both', expand=True)
 
         # Add Search Box (Rememeber to implement 'Search' showing in bar )
-        search_box = tk.Entry(self, width=60)
-        search_box.pack(pady=4, padx=2, anchor=tk.NE)
+        self.search_box = tk.Entry(self, width=60)
+        self.search_box.pack(pady=4, padx=2, anchor=tk.NE)
 
         # Add some style
         style = ttk.Style()
@@ -169,15 +141,15 @@ class AssessmentTreeview(tk.Frame):
                   background=[('selected', '#73c2fb')]) #a4bce9
 
         # Create Treeview Frame
-        tree_frame = tk.Frame(self)
-        tree_frame.pack(fill=tk.X, anchor=tk.N, padx=(20, 0))
+        self.tree_frame = tk.Frame(self)
+        self.tree_frame.pack(fill=tk.X, anchor=tk.N)
 
         # Treeview Scrollbar
-        tree_scroll = tk.Scrollbar(tree_frame)
+        tree_scroll = tk.Scrollbar(self.tree_frame)
         tree_scroll.pack(side=tk.RIGHT, fill=tk.Y, pady=(2,0))
 
         # Create Treeview
-        self.my_tree = ttk.Treeview(tree_frame, yscrollcommand=tree_scroll.set, selectmode='extended', height=25)
+        self.my_tree = ttk.Treeview(self.tree_frame, yscrollcommand=tree_scroll.set, selectmode='extended', height=25)
         # Pack to the screen
         self.my_tree.pack(fill=tk.X)
 
@@ -196,10 +168,8 @@ class AssessmentTreeview(tk.Frame):
         self.my_tree.column("Last name", anchor=tk.W, width=100)
         self.my_tree.column("Class", anchor=tk.W, width=50)
         self.my_tree.column("Course", anchor=tk.W, width=200)
-        self.my_tree.column("Assessment", anchor=tk.W, width=200)
+        self.my_tree.column("Assessment", anchor=tk.W, width=100)
         self.my_tree.column("Score", anchor=tk.W, width=1200)
-
-
 
         # Create Column headings
         self.my_tree.heading("#0", text="", anchor=tk.W)
@@ -213,12 +183,65 @@ class AssessmentTreeview(tk.Frame):
         self.my_tree.heading("Assessment", text="Assessment", anchor=tk.W)
         self.my_tree.heading("Score", text="Score", anchor=tk.W)
 
-
         # Create striped Treeview rows
         self.my_tree.tag_configure("oddrow", background="white")
         self.my_tree.tag_configure("evenrow", background="#f3f3f4")
+       
+        # Create data entry frame
+        entry_frame = tk.Frame(self) # wraps around entries labelframe
+        entry_frame.pack(side='top', fill='both', expand=True, pady=(15,26))
+        entries_label_frame = tk.LabelFrame(entry_frame, bg='white', borderwidth=0)
+        entries_label_frame.pack(side='top',fill='both', expand=True)
         
+        # Data entry widgets: Labels & entries
+        first_name_label = tk.Label(entries_label_frame, text="Name")
+        first_name_label.grid(row=0, column=3, padx=5)
+        self.first_name_entry = tk.Entry(entries_label_frame, text=first_name_label, width=50)
+        self.first_name_entry.grid(row=0, column=4, padx=5)
         
+        score_label = tk.Label(entries_label_frame, text="Score")
+        score_label.grid(row=1, column=3, padx=5)
+        self.score_entry = tk.Entry(entries_label_frame, text=score_label, width=10)
+        self.score_entry.grid(row=1, column=4, padx=5, sticky='W')
+                
+        # Add Buttons 
+        add_button = ttk.Button(entries_label_frame, text="Add Record", command= lambda: self.add_record(), width=42)
+        add_button.grid(row=2, column=4, padx=10, pady=5, columnspan=2)
+        
+        update_button = ttk.Button(entries_label_frame, text="Update Record", command= lambda: self.update_record(), width=19)
+        update_button.grid(row=3, column=4, padx=1, pady=5)
+
+        remove_one_button = ttk.Button(entries_label_frame, text="Remove Record", command=lambda: self.remove_record(), width=19)
+        remove_one_button.grid(row=3, column=5, padx=1, pady=5)           
+        
+        # Set assessment variables and create checkboxes
+        select_assessment_label = tk.Label(entries_label_frame, text="Select Assessment")
+        select_assessment_label.grid(row=0, column=0, pady=(5,0), padx=10, sticky=tk.W)
+        self.assessment_select = tk.StringVar()
+        checkbox1 = ttk.Checkbutton(entries_label_frame, text="First test", variable=self.assessment_select, onvalue="First test", offvalue="")
+        checkbox1.grid(row=1, column=0, padx=10, sticky=tk.W)
+        checkbox2 = ttk.Checkbutton(entries_label_frame, text="Second test", variable=self.assessment_select, onvalue="Second test", offvalue="")
+        checkbox2.grid(row=2, column=0, padx=10, sticky=tk.W)
+        checkbox3 = ttk.Checkbutton(entries_label_frame, text="Third test", variable=self.assessment_select, onvalue="Third test", offvalue="")
+        checkbox3.grid(row=3, column=0, padx=10, sticky=tk.W)
+        checkbox4 = ttk.Checkbutton(entries_label_frame, text="Project", variable=self.assessment_select, onvalue="Project", offvalue="")
+        checkbox4.grid(row=4, column=0, padx=10, sticky=tk.W)      
+        checkbox5 = ttk.Checkbutton(entries_label_frame, text="Assignment", variable=self.assessment_select, onvalue="Assignment", offvalue="")
+        checkbox5.grid(row=1, column=1, padx=10, sticky=tk.W)
+        checkbox6 = ttk.Checkbutton(entries_label_frame, text="Home work", variable=self.assessment_select, onvalue="Home work", offvalue="")
+        checkbox6.grid(row=2, column=1, padx=10, sticky=tk.W)
+        checkbox7 = ttk.Checkbutton(entries_label_frame, text="Laboratory", variable=self.assessment_select, onvalue="Laboratry", offvalue="")
+        checkbox7.grid(row=3, column=1, padx=10, sticky=tk.W)
+        checkbox8 = ttk.Checkbutton(entries_label_frame, text="Examination", variable=self.assessment_select, onvalue="Examination", offvalue="")
+        checkbox8.grid(row=4, column=1, padx=10, sticky=tk.W)
+        # Set other_assessment variable and combobox
+        self.other_assessment_select = tk.StringVar()
+        self.other_assessment_list = ["Enter other assessment"]
+        other_assessments = ttk.Combobox(entries_label_frame, values=self.other_assessment_list, width=25)
+        other_assessments.grid(row=1, column=2, pady=10, padx=10, sticky=tk.W)
+        other_assessments.set(self.other_assessment_list[0])
+
+
 class AssessmentCombined(tk.Frame):
     def __init__(self, parent): 
         tk.Frame.__init__(self, parent)
@@ -331,4 +354,8 @@ class AssessmentCombined(tk.Frame):
         self.my_canvas.grid(row=0, column = 0, rowspan=2, pady=5, padx=10)
         # Put the image on the canvas
         self.my_canvas.create_image(0,0, image=self.img, anchor='nw')    
-            
+
+
+
+        
+        

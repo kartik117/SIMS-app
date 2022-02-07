@@ -21,26 +21,25 @@ class NavBarAssessment(tk.Frame):
         self.parent = parent
         self.pack(side='left', fill='both', pady=26)
               
-        nav_button=tk.Button(self, text='Assessments', width=25, anchor=tk.W, fg='white', font=("Calibri", 12, 'bold'), bg='#394552',
+        nav_button=tk.Button(self, text='Assessments', width=20, anchor=tk.W, fg='white', font=("Calibri", 12, 'bold'), bg='#394552',
                           command=lambda: self.show_assessments())
         nav_button.grid(row=0, column=0, sticky=tk.W, pady=(10, 0), padx=10)
         
-        nav_button.grid(row=1, column=0, sticky=tk.W, pady=10, padx=10)
-        nav_button=tk.Button(self, text='Create Assessments', width=25, bg='#394552', bd=0, fg='white', font=('Calibri', 12), anchor=tk.W,
+        nav_button=tk.Button(self, text='Create Assessments', width=20, bg='#394552', bd=0, fg='white', font=('Calibri', 12), anchor=tk.W,
                           command=lambda: self.create_assessment())
-        nav_button.grid(row=2, column=0, sticky=tk.W, padx=30, pady=10)
-        nav_button=tk.Button(self, text='Record Assessments', width=25, bg='#394552', fg='white', bd=0, font=('Calibri', 12), anchor=tk.W,
+        nav_button.grid(row=1, column=0, sticky=tk.W, padx=30, pady=10)
+        nav_button=tk.Button(self, text='Record Assessments', width=20, bg='#394552', fg='white', bd=0, font=('Calibri', 12), anchor=tk.W,
                           command=lambda: self.enroll())
-        nav_button.grid(row=3, column=0, sticky=tk.W, padx=30, pady=10)        
-        enroll_button=tk.Button(self, text='Evaluation', width=25, bg='#394552', bd=0, fg='white', font=('Calibri', 12), anchor=tk.W,
+        nav_button.grid(row=2, column=0, sticky=tk.W, padx=30, pady=10)        
+        enroll_button=tk.Button(self, text='Evaluation', width=20, bg='#394552', bd=0, fg='white', font=('Calibri', 12), anchor=tk.W,
                           command=lambda: self.our_command)
-        enroll_button.grid(row=4, column=0, sticky=tk.W, padx=30, pady=10)
-        nav_button=tk.Button(self, text='Timetable', width=25, anchor=tk.W, fg='white', font=("Calibri", 12, 'bold'), bg='#394552', bd=0,
+        enroll_button.grid(row=3, column=0, sticky=tk.W, padx=30, pady=10)
+        nav_button=tk.Button(self, text='Timetable', width=20, anchor=tk.W, fg='white', font=("Calibri", 12, 'bold'), bg='#394552', bd=0,
                           command=lambda: self.our_command)
-        nav_button.grid(row=5, column=0, sticky=tk.W, padx=10, pady=10)
-        nav_button=tk.Button(self, text='Notes', width=25, anchor=tk.W, fg='white', font=("Calibri", 12, 'bold'), bg='#394552', bd=0,
+        nav_button.grid(row=4, column=0, sticky=tk.W, padx=10, pady=10)
+        nav_button=tk.Button(self, text='Notes', width=20, anchor=tk.W, fg='white', font=("Calibri", 12, 'bold'), bg='#394552', bd=0,
                           command=lambda: self.our_command)
-        nav_button.grid(row=6, column=0, sticky=tk.W, padx=10)
+        nav_button.grid(row=5, column=0, sticky=tk.W, padx=10)
         
     
     def show_assessments(self):
@@ -55,7 +54,7 @@ class NavBarAssessment(tk.Frame):
             return
         else:
             for widget in self.parent.winfo_children():
-                if repr(widget) != '<navbar_assess.NavBarAssessment object .!frame.!dashboard.!navbarassessment>': # To avoid deleting the navbar widget
+                if '.!navbarassessment' not in repr(widget): # To avoid deleting the navbar widget
                     # Clear all widgets off screen
                     widget.destroy()
             # Create assess frame and assessment treeview as attributes of navbar's parent object i.e Dashboard
@@ -79,6 +78,13 @@ class NavBarAssessment(tk.Frame):
                     widget.destroy()
             # Create 'create_assessment' frame as an attribute of navbar's parent object i.e Dashboard
             self.parent.create_frame = CreateAssessment(self.parent)
+            self.parent.treeview = AssessmentTreeview(self.parent)
+            # Remove searchbox
+            #self.parent.treeview.search_box.destroy()
+            # Override tree_frame pack function. Polymorphism. Ha!
+           # self.parent.treeview.tree_frame.pack(side=tk.RIGHT, fill=tk.Y, pady=(26,0))
+
+
      
     def enroll(self):
         pass

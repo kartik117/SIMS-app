@@ -50,10 +50,10 @@ Enter class and click on "Add Record"
 Select "Add/Edit Students" tab to add students individually.
 ![](images/addstudents.jpg)
 
-Select "Upload Students" to import excel spreadsheet containing students' records. (List must have 3 columns- first name, last name and gender)
+* Select "Upload Students" to import excel spreadsheet containing students' records. (List must have 3 columns- first name, last name and gender)  
 ![](images/uploadstudents.jpg)
 
-
+<br>
 
 ### Database ERD
 ![](images/sims%20ERD.jpg)

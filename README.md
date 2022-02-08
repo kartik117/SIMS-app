@@ -21,11 +21,14 @@
 Click "Sign Up" to navigate to sign up page.  
 Enter username and password (password entered twice for validation).
 Click "Create Account"
+![](images/signup.jpg)
 
 
 * Login  
 After sign up is complete, navigate to login page.
 Enter name and password.
+![](images/login.jpg)
+
 
 * Add courses  
 On successful login, the first page to be viewed is the courses module.  
@@ -34,14 +37,20 @@ A navigation bar and file menu are on the page for access to other functionaliti
 Here, user can add the various courses she teaches.  
 Enter one course at a time and its course code (if applicable) in their respective entry boxes. Click on "Add Record".  
 If there is any error in the record, select the course in the display window, edit it in entry box. Then click "Update Record".
+![](images/mycourses.jpg)
+
 
 * Add classes  
 Select "My Classes" tab on navigation bar.  
 Enter class and click on "Add Record"
+![](images/myclasses.jpg)
+
 
 * Add students  
 Select "Add/Edit Students" tab to add students individually.  
 Select "Upload Students" to import excel spreadsheet containing students' records. (List must have 3 columns- first name, last name and gender)
+![](images/uploadstudents.jpg)
+
 
 
 ### Database ERD

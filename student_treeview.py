@@ -10,7 +10,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 
-from db_srms_sqlite import Database
+from db_sims_sqlite import Database
 db = Database('new_single_user3.db')
 
 class StudentTreeview(tk.Frame):

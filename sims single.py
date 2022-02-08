@@ -12,15 +12,15 @@ from PIL import ImageTk, Image
 
 from dashboard import Dashboard
 
-from db_srms_sqlite import Database
+from db_sims_sqlite import Database
 db = Database('new_single_user3.db')
 
-class SRMSApp(tk.Tk):
+class SIMSApp(tk.Tk):
 
     def __init__(self, *args, **kwargs):
 
         tk.Tk.__init__(self, *args, *kwargs)
-        tk.Tk.wm_title(self, 'School Records Management System')
+        tk.Tk.wm_title(self, 'School Information Management System')
         #tk.Tk.iconbitmap(self, default='png-to-ico.ico')
         w= tk.Tk.winfo_screenwidth(self)
         h= tk.Tk.winfo_screenheight(self)
@@ -305,5 +305,5 @@ class Login(tk.Frame):
     
     
 
-app = SRMSApp()
+app = SIMSApp()
 app.mainloop()

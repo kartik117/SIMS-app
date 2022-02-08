@@ -12,7 +12,7 @@ from tkinter import messagebox
 import os
 from PIL import ImageTk, Image
 
-from db_srms_sqlite import Database
+from db_sims_sqlite import Database
 db = Database('new_single_user3.db')
 
 
@@ -330,7 +330,14 @@ class AssessmentCombined(tk.Frame):
         add_photo_button = ttk.Button(assessment_frame, text="Add Photo", command=lambda: self.add_profile_picture(), width=15)
         add_photo_button.grid(row=2, column=3, padx=10, pady=20)
         
-    def add_profile_picture(self):    
+    def add_profile_picture(self):
+        '''
+        Add an image file from PC as profile picture 
+        Returns
+        -------
+        None.
+
+        '''
         filename = filedialog.askopenfilename(
             initialdir = "C:/Documents",
             title = "Open A File",

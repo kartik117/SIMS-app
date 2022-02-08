@@ -13,7 +13,7 @@
 * ### Timetable: a daily outline of classes to be taught. 
 <br>
 
-## User onboarding process:
+## Usage:
 * Open app  
 ![](images/sims%20intro.jpg)
 

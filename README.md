@@ -47,7 +47,9 @@ Enter class and click on "Add Record"
 
 
 * Add students  
-Select "Add/Edit Students" tab to add students individually.  
+Select "Add/Edit Students" tab to add students individually.
+![](images/addstudents.jpg)
+
 Select "Upload Students" to import excel spreadsheet containing students' records. (List must have 3 columns- first name, last name and gender)
 ![](images/uploadstudents.jpg)
 

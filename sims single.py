@@ -41,13 +41,19 @@ class SIMSApp(tk.Tk):
             frame = page(parent=container, controller=self)
           
             self.frames[page] = frame # e.g self.frames[StartPage] = StartPage(parent=container, controller=self)
+            # at this point self.frames becomes = {
+                                                 # StartPage: StartPage(parent=container, controller=self), 
+                                                 # SignUp: SignUp(parent=container, controller=self), 
+                                                 # Login: Login(parent=container, controller=self), 
+                                                 # Dashboard: Dashboard(parent=container, controller=self)
+                                                 # }
     
             frame.grid(row=0, column=0, sticky='nsew') # e.g StartPage(parent=container, controller=self).grid(row=0, column=0, sticky='nsew)
-
+        
         self.show_frame(StartPage)
 
     def show_frame(self, page_name):
-        frame = self.frames[page_name]
+        frame = self.frames[page_name] # means assign to frame variable the value of self.frames[page_name] key. The frame from init fxn is a dictionary key mapping to a frame object as its value 
         frame.tkraise()
         # Add menu bar of frame
         menubar = frame.menubar(self)
@@ -68,7 +74,6 @@ class StartPage(tk.Frame):
         # Define canvas
         self.my_canvas = tk.Canvas(self)
         self.my_canvas.pack(side='top', fill='both', expand=True)
-
         # Put the image on the canvas
         self.my_canvas.create_image(0,0, image=self.img, anchor='nw')
 

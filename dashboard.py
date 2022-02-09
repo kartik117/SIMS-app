@@ -13,6 +13,7 @@ from navbar import NavBar
 from coursetreeview import CourseTreeview
 from navbar_assess import NavBarAssessment
 from assessments import CreateAssessment, AssessmentTreeview, AssessmentCombined
+from attendance import Attendance
 
 
 class Dashboard(tk.Frame):
@@ -88,7 +89,7 @@ class Dashboard(tk.Frame):
         attendanceMenu = tk.Menu(menubar, tearoff=False)
         menubar.add_cascade(label="Attendance", menu=attendanceMenu)
         # Attendance menu items
-        attendanceMenu.add_command(label="New", command=self.our_command)
+        attendanceMenu.add_command(label="New", command=lambda: self.open_attendance())
         attendanceMenu.add_command(label="View log", command=self.our_command)
         attendanceMenu.add_command(label="Add existing log", command=self.our_command)
        
@@ -141,6 +142,10 @@ class Dashboard(tk.Frame):
         assess_frame = AssessmentCombined(self)
         assessment_treeview = AssessmentTreeview(self)
 
-
-    
+    def open_attendance(self):
+        for widget in self.winfo_children():
+            widget.destroy()
+        attendance_frame = Attendance(self)
+        
+       
   

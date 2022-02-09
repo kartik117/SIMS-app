@@ -8,6 +8,40 @@ class Database:
                                                         sqlite3.PARSE_COLNAMES)
         self.cur = self.conn.cursor()
         self.cur.execute("""
+                CREATE TABLE IF NOT EXISTS session (
+                        session_id INTEGER NOT NULL PRIMARY KEY,
+                        session_name TEXT NOT NULL,
+                        resumption_date TEXT NOT NULL,
+                        closing_date TEXT NOT NULL                   
+                        );"""),
+        self.cur.execute("""
+                CREATE TABLE IF NOT EXISTS term (
+                        term_id INTEGER NOT NULL PRIMARY KEY,
+                        session_id INTEGER NOT NULL,
+                        term_name TEXT NOT NULL,
+                        resumption_date TEXT NOT NULL,
+                        closing_date TEXT NOT NULL,
+                        FOREIGN KEY (session_id) REFERENCES session (session_id)
+                        );"""),
+        self.cur.execute("""
+                CREATE TABLE IF NOT EXISTS course_assignment (
+                        assignment_id INTEGER NOT NULL PRIMARY KEY,
+                        course_id INTEGER NOT NULL,
+                        session_id INTEGER NOT NULL,
+                        date_of_assignment TEXT NOT NULL,
+                        FOREIGN KEY (course_id) REFERENCES course (course_id),
+                        FOREIGN KEY (session_id) REFERENCES session (session_id)
+                        );"""),
+        self.cur.execute("""
+                CREATE TABLE IF NOT EXISTS break (
+                        break_id INTEGER NOT NULL PRIMARY KEY,
+                        term_id INTEGER NOT NULL,
+                        break_name INTEGER NOT NULL,
+                        start_date TEXT NOT NULL,
+                        end_date TEXT NOT NULL,
+                        FOREIGN KEY (term_id) REFERENCES term (term_id)
+                        );"""),
+        self.cur.execute("""
                 CREATE TABLE IF NOT EXISTS course (
                         course_id INTEGER NOT NULL PRIMARY KEY,
                         course_name TEXT NOT NULL,
@@ -28,8 +62,7 @@ class Database:
                         FOREIGN KEY (class_name) REFERENCES class (class_name)
                         );"""),
                 # correct enrollment to enrolment
-        self.cur.execute("""
-                         
+        self.cur.execute("""                       
                 CREATE TABLE IF NOT EXISTS enrollment (
                         enrollment_id INTEGER NOT NULL PRIMARY KEY,
                         course_id INTEGER NOT NULL,
@@ -257,8 +290,12 @@ def main():
     #db.cur.execute("SELECT COUNT(student_id) from enrollment")
     #rows = db.cur.fetchall()
     #print(rows)
+    #db.conn = sqlite3.connect('new_single_user3.db', detect_types=sqlite3.PARSE_DECLTYPES |
+     #                                               sqlite3.PARSE_COLNAMES)
+    #db.cur = db.conn.cursor()
     
-    
+    #db.conn.commit()
+
     # To add columns to db, add self.cur.execute functions here and run this program directly
     # Affected tables must have their insert and and update queries adjusted accordingly and select queries if necessary
 

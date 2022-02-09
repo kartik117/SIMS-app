@@ -5,11 +5,8 @@ Created on Tue Jan 18 08:55:41 2022
 @author: KAIZEN
 """
 
-
 import tkinter as tk
 from tkinter import ttk
-
-
 
 from assessments import CreateAssessment, AssessmentTreeview, AssessmentCombined
 
@@ -34,14 +31,13 @@ class NavBarAssessment(tk.Frame):
         enroll_button=tk.Button(self, text='Evaluation', width=20, bg='#394552', bd=0, fg='white', font=('Calibri', 12), anchor=tk.W,
                           command=lambda: self.our_command)
         enroll_button.grid(row=3, column=0, sticky=tk.W, padx=30, pady=10)
-        nav_button=tk.Button(self, text='Timetable', width=20, anchor=tk.W, fg='white', font=("Calibri", 12, 'bold'), bg='#394552', bd=0,
+        nav_button=tk.Button(self, text='Emotional Quotient', width=20, anchor=tk.W, fg='white', font=("Calibri", 12, 'bold'), bg='#394552', bd=0,
                           command=lambda: self.our_command)
         nav_button.grid(row=4, column=0, sticky=tk.W, padx=10, pady=10)
         nav_button=tk.Button(self, text='Notes', width=20, anchor=tk.W, fg='white', font=("Calibri", 12, 'bold'), bg='#394552', bd=0,
                           command=lambda: self.our_command)
         nav_button.grid(row=5, column=0, sticky=tk.W, padx=10)
-        
-    
+            
     def show_assessments(self):
         '''
         Clear widgets currently on screen so as to display new widgets
@@ -83,8 +79,6 @@ class NavBarAssessment(tk.Frame):
             #self.parent.treeview.search_box.destroy()
             # Override tree_frame pack function. Polymorphism. Ha!
            # self.parent.treeview.tree_frame.pack(side=tk.RIGHT, fill=tk.Y, pady=(26,0))
-
-
      
     def enroll(self):
         pass
@@ -105,4 +99,5 @@ class NavBarAssessment(tk.Frame):
     def our_command(self):
         pass 
         
+
     

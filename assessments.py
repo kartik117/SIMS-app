@@ -157,14 +157,13 @@ class AssessmentTreeview(tk.Frame):
         tree_scroll.config(command=self.my_tree.yview)
 
         # Define our columns. Reserve two extra null columns for subsequent child rows i.e student first and last names
-        self.my_tree['columns'] = ('ID', 'R.Id', 'First name', 'Middle name', 'Last name', 'Class', 'Course', 'Assessment', 'Score')
+        self.my_tree['columns'] = ('ID', 'R.Id', 'First name', 'Last name', 'Class', 'Course', 'Assessment', 'Score')
 
         # Format our columns
         self.my_tree.column("#0", stretch=tk.NO, width=0)
         self.my_tree.column("ID", anchor=tk.CENTER, stretch=tk.NO, width=0)
         self.my_tree.column("R.Id", anchor=tk.W, stretch=tk.NO, width=30)
         self.my_tree.column("First name", anchor=tk.W, width=100)
-        self.my_tree.column("Middle name", anchor=tk.W, width=100)
         self.my_tree.column("Last name", anchor=tk.W, width=100)
         self.my_tree.column("Class", anchor=tk.W, width=50)
         self.my_tree.column("Course", anchor=tk.W, width=200)
@@ -176,7 +175,6 @@ class AssessmentTreeview(tk.Frame):
         self.my_tree.heading("ID", text="ID", anchor=tk.CENTER)
         self.my_tree.heading("R.Id", text="R.Id", anchor=tk.W)
         self.my_tree.heading("First name", text="First name", anchor=tk.W)
-        self.my_tree.heading("Middle name", text="Middle name", anchor=tk.W)
         self.my_tree.heading("Last name", text="Last name", anchor=tk.W)
         self.my_tree.heading("Class", text="Class", anchor=tk.W)
         self.my_tree.heading("Course", text="Course", anchor=tk.W)

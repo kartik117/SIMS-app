@@ -11,37 +11,38 @@ import os
 from PIL import ImageTk, Image
 
 from dashboard import Dashboard
-
 from db_sims_sqlite import Database
 db = Database('new_single_user3.db')
 
 class SIMSApp(tk.Tk):
-
     def __init__(self, *args, **kwargs):
 
         tk.Tk.__init__(self, *args, *kwargs)
         tk.Tk.wm_title(self, 'School Information Management System')
         #tk.Tk.iconbitmap(self, default='png-to-ico.ico')
+        # Make the app window fill the screen. To account for different PC screens. 
+        # TBD: a fix needed because app screen doesn't maximise on loading.
         w= tk.Tk.winfo_screenwidth(self)
         h= tk.Tk.winfo_screenheight(self)
         tk.Tk.geometry(self, '%dx%d' %(w,h))
         #tk.Tk.resizable(self, width= False, height = False)
         
         container = tk.Frame(self)
-
         container.pack(side='top', fill='both', expand=True)
 
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
-
+        
+        # Create an empty dictionary. It will contain all pages' names as keys and their respective frame objects as values.        
         self.frames = {}
-
+        # Loop through to create instances of the frame objects
+        # Pass in the parent and controller values as arguments and assign the page to a variable frame
         for page in (StartPage, SignUp, Login, Dashboard):
             frame = page(parent=container, controller=self)
           
-            self.frames[page] = frame
+            self.frames[page] = frame # e.g self.frames[StartPage] = StartPage(parent=container, controller=self)
     
-            frame.grid(row=0, column=0, sticky='nsew')
+            frame.grid(row=0, column=0, sticky='nsew') # e.g StartPage(parent=container, controller=self).grid(row=0, column=0, sticky='nsew)
 
         self.show_frame(StartPage)
 
@@ -53,16 +54,15 @@ class SIMSApp(tk.Tk):
         self.configure(menu=menubar)
 
 class StartPage(tk.Frame):
-
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
         # Image import
-        self.controller = controller
         self.img = Image.open("images/lib1.jpg")
-        self.img = self.img.resize((self.controller.winfo_screenwidth(), self.controller.winfo_screenheight()))
+        # Set size of image to screen size
+        self.img = self.img.resize((controller.winfo_screenwidth(), controller.winfo_screenheight()))
 
-        # There is the need to specify the master tk instance since ImageTK is a second instance of tkinter
+        # There is the need to specify the master tk instance since ImageTK is also an instance of tkinter's Tk class
         self.img = ImageTk.PhotoImage(self.img, master=self)
 
         # Define canvas
@@ -102,31 +102,27 @@ class StartPage(tk.Frame):
         # Add text back
         self.my_canvas.create_text(180, 330, text = 'SIMS ', font=("Arial black", 40, 'bold italic'), fill='white')
         '''
-    
 
     def menubar(self, root):
         menubar = tk.Menu(root)
         return(menubar)
 
 class SignUp(tk.Frame):
-
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         
-        self.controller = controller
         # Image import
         self.img = Image.open("images/lib2.jpg")     
-        self.img = self.img.resize((self.controller.winfo_screenwidth(), self.controller.winfo_screenheight()))
+        self.img = self.img.resize((controller.winfo_screenwidth(), controller.winfo_screenheight()))
 
-        # There is the need to specify the master tk instance since ImageTK is a second instance of tkinter
+        # There is the need to specify the master tk instance since ImageTK is also an instance of tkinter's Tk class
         self.img = ImageTk.PhotoImage(self.img, master=self)
         # Define canvas
         self.my_canvas = tk.Canvas(self)
-        self.my_canvas.pack(side='top', fill='both', expand=True)
-     
+        self.my_canvas.pack(side='top', fill='both', expand=True)   
         # Put the image on the canvas
         self.my_canvas.create_image(0,0, image=self.img, anchor='nw')
-        # Add label
+        # Add labels
         self.my_canvas.create_text(510, 268, text = 'Enter your username or ID.', font=("Arial black", 12, 'italic'), fill='white', anchor='nw')
         self.my_canvas.create_text(510, 338, text = 'Enter your password.', font=("Arial black", 12, 'italic'), fill='white', anchor='nw')
         self.my_canvas.create_text(510, 408, text = 'Retype password.', font=("Arial black", 12, 'bold italic'), fill='white', anchor='nw')
@@ -135,12 +131,12 @@ class SignUp(tk.Frame):
         self.temp_username = tk.StringVar()
         self.temp_password = tk.StringVar()
         self.temp_confirm_password = tk.StringVar()
-       # Add entry
+       # Add entry boxes
         self.username_entry = tk.Entry(self, textvariable=self.temp_username, font=('Helvetica', 18), width=30, fg="#336d92", bd=0)
         self.password_entry = tk.Entry(self, textvariable=self.temp_password, show='*', font=('Helvetica', 18), width=30, fg="#336d92", bd=0)
         self.confirm_password_entry = tk.Entry(self, textvariable=self.temp_confirm_password, show='*', font=('Helvetica', 18), width=30, fg="#336d92", bd=0)
 
-        # Buttons
+        # Add buttons
         sign_up_button=tk.Button(self, text='CREATE ACCOUNT', font=('Calibri', 12, 'bold'), width=48, height=2,
                           command=self.register)
         login_button=ttk.Button(self, text='Login', width=20,
@@ -155,7 +151,6 @@ class SignUp(tk.Frame):
         sign_up_button_window = self.my_canvas.create_window(510, 500, anchor= 'nw', window=sign_up_button)
         login_button_window = self.my_canvas.create_window(1000, 50, anchor= 'nw', window=login_button)
         back_to_home_button_window = self.my_canvas.create_window(1150, 50, anchor= 'nw', window=back_to_home_button)
-
 
     def register(self):
         # Validation
@@ -195,13 +190,13 @@ class Login(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        
+        # Define controller so it can be used in login_check event function
         self.controller = controller
         # Image import
         self.img = Image.open("images/lib3.jpg")
-        self.img = self.img.resize((self.controller.winfo_screenwidth(), self.controller.winfo_screenheight()))
+        self.img = self.img.resize((controller.winfo_screenwidth(), controller.winfo_screenheight()))
 
-        # There is the need to specify the master tk instance since ImageTK is a second instance of tkinter
+        # There is the need to specify the master tk instance since ImageTK is also an instance of tkinter's Tk class
         self.img = ImageTk.PhotoImage(self.img, master=self)
 
         # Define canvas
@@ -240,7 +235,6 @@ class Login(tk.Frame):
         login_button_window = self.my_canvas.create_window(510, 448, anchor= 'nw', window=login_button)
         sign_up_button_window = self.my_canvas.create_window(1000, 50, anchor= 'nw', window=sign_up_button)
         back_to_home_button_window = self.my_canvas.create_window(1150, 50, anchor= 'nw', window=back_to_home_button)
-
     
     def verify_login(self):
         # check if login username entry matches username and if login password entry matches password
@@ -303,7 +297,8 @@ class Login(tk.Frame):
         menubar = tk.Menu(root)
         return(menubar)
     
-    
-
+   
+# Create an instance of the class SIMSApp and assign it to a variable app
 app = SIMSApp()
+# Call the mainloop method on app to keep it running in a continuous loop
 app.mainloop()

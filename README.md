@@ -63,6 +63,7 @@ Select "Add/Edit Students" tab to add students individually.
 ### Libraries:
 * Tkinter
 * SQLite3
+* Numpy
 * Pandas
 * OS
 * PIL

@@ -1,6 +1,6 @@
 # SIMS
 
-### A secure desktop app designed for use by a high school teacher to manage students' records.
+### A secure PC app designed for use by a high school teacher to manage students' records.
 
 ### This application is a Graphical User Interface (GUI) with an embedded database. With it, the user can keep track of the academic performance of students by storing assessment scores and class attendance logs.
 ### The app also aids the teacher by computing students' total scores from input grades and determining the respective positions of each student in a class.

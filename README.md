@@ -7,6 +7,7 @@
 <br>
 
 ## Features:
+* ### Available offline (works without an internet connection).
 * ### Registration and login.
 * ### Storage of academic records
 * ### Class attendance log
